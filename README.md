@@ -36,4 +36,4 @@ If a vulnerability is detected, start by posting a message in the [issues](https
 
 ## License
 
-[License](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+[GNU General Public License v3.0](https://github.com/ItsJustMiaouss/NextCommand/blob/master/LICENSE)
