@@ -1,0 +1,89 @@
+# This is the configuration file on the NextCommand plugin.
+# You can use Minecraft colors ("&")
+
+# Permission list:
+# nextcommand.reload
+# nextcommand.fly (.other)
+# nextcommand.heal (.other)
+# nextcommand.feed (.other)
+# nextcommand.god (.other)
+# nextcommand.hat
+# nextcommand.repair
+# nextcommand.spawn (.set)
+# nextcommand.broadcast
+
+# Main
+prefix: "&8[&aNextCommand&8]"
+prefix-error: "&8[&cNextCommand&8]"
+console-no-player: "&7You must be a player to use this command !"
+no-permission: "&7You do not have permission to use this command !"
+player-not-found: "&7The player has not been found !"
+config-reloaded: "&7The configuration file has been &asuccessfully &7reloaded!"
+# Use {ERROR} to replace the error message
+exception: "&7A mistake has been made! Please check the configuration file ({ERROR})."
+
+# Join/Quit Events
+join-event:
+  # Use {PLAYER} to replace player name
+  enable-join-message: true
+  join-message: "&8[&a+&8] &7{PLAYER}"
+  enable-quit-message: true
+  quit-message: "&8[&c-&8] &7{PLAYER}"
+  
+# Chatevent
+chatevent:
+  allow-custom-colors: true
+  allow-custom-format: true
+  # Use {PLAYER} to replace player name and {MESSAGE} to replace message
+  custom-format: "&7{PLAYER} » &r{MESSAGE}"
+
+# FlyCommand
+flycommand:
+  fly-enabled: "&7Your fly has been &aenabled"
+  fly-disabled: "&7Your fly has been &cdisabled"
+  # Use {PLAYER} to replace player name
+  fly-enabled-sender: "&7You &aenabled &7fly for &a{PLAYER}"
+  fly-disabled-sender: "&7You &cdisabled &7fly for &a{PLAYER}"
+  
+# FeedCommand
+feedcommand:
+  fed: "&7You've been fed."
+  no-fed: "&7You're not hungry!"
+  fed-target: "&7You've fed &a{PLAYER}&7"
+  no-fed-target: "&a{PLAYER} &7is not hungry!"
+  
+# HealCommand
+healcommand:
+  healed: "&7You've been healed"
+  no-healed: "&7You don't need care!"
+  healed-target: "&7You healed &a{PLAYER}&7"
+  no-healed-target: "&a{PLAYER} &7doesn't need care!"
+  
+# GodCommand
+godcommand:
+  god-activated: "&7God mode has been &aenabled"
+  god-deactivated: "&7God mode has been &cdisabled"
+  god-activated-sender: "&7God mode has been &aenabled &7for &a{PLAYER}"
+  god-deactivated-sender: "&7God mode has been &cdisabled &7for &a{PLAYER}"
+  
+# HatCommand
+hatcommand:
+  placed: "&7Your new hat has been defined!"
+  no-placed: "&7Please place a block in your hand and try again!"
+  
+# SpawnCommand
+spawncommand:
+  teleportation: "&7Teleportation..."
+  no-spawn: "&7No spawn points have been set!"
+  spawn-set: "&7The spawn point has been set!"
+  location:
+    World:
+    X:
+    Y:
+    Z:
+    Yaw:
+    Pitch:
+    
+# BroadcastCommand
+broadcastcommand:
+  broadcast: "&8[&aBroadcast&8] &7{MESSAGE}"

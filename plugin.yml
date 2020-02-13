@@ -1,0 +1,25 @@
+name: NextCommand
+version: v2.4-alpha
+author: ItsJustMiaouss
+description: This plugin adds essential commands to Minecraft servers
+website: https://github.com/ItsJustMiaouss/NextCommand
+main: com.itsjustmiaouss.nextcommand.Main
+commands:
+  nextcommand:
+    description: Main plugin commands
+    aliases: nc
+  fly:
+    description: Enable/Disable fly
+  feed:
+    description: Feed players
+  heal:
+    description: Heal player
+  god:
+    description: Enable/Disabled god mod
+  hat:
+    description: Put a block on your head
+  spawn:
+    description: Set and teleport players to the spawn point
+  broadcast:
+    description: Broadcast a message on whole server
+    aliases: bc
