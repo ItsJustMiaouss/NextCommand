@@ -1,5 +1,4 @@
 # This is the configuration file on the NextCommand plugin.
-# You can use Minecraft colors ("&")
 
 # Permission list:
 # nextcommand.reload
@@ -27,6 +26,7 @@ exception: "&7A mistake has been made! Please check the configuration file ({ERR
 commandprotection:
   enable-protection: true
   protection-message: "&cCommand protection is activated, so you can't use this command!"
+  # List here all commands to be deactivated
   protection-list:
     - example1
     - example2
