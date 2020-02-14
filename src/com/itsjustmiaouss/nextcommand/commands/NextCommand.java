@@ -8,7 +8,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 
 import com.google.common.collect.Lists;
 import com.itsjustmiaouss.nextcommand.Main;
@@ -24,15 +23,8 @@ public class NextCommand implements CommandExecutor, TabCompleter {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
-
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(main.prefixerror + main.getConfig().getString("console-no-player").replaceAll("&", "§"));
-			return true;
-		}
-		
-		Player p =(Player)sender;
 		if(args.length == 0) {
-			p.sendMessage(main.prefix + "§7The plugin §aNextCommand §7was developed by §aItsJustMiaouss§7.");
+			sender.sendMessage(main.prefix + "§7The plugin §aNextCommand §7was developed by §aItsJustMiaouss§7.");
 			return true;
 		}
 		
@@ -40,12 +32,12 @@ public class NextCommand implements CommandExecutor, TabCompleter {
 			String s = args[0];
 			switch (s) {
 			case "reload":
-				if(!p.hasPermission("nextcommand.reload")) {
-					p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
+				if(!sender.hasPermission("nextcommand.reload")) {
+					sender.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 					return true;
 				}
 				main.reloadConfig();
-				p.sendMessage(main.prefix + main.getConfig().getString("config-reloaded").replaceAll("&", "§"));
+				sender.sendMessage(main.prefix + main.getConfig().getString("config-reloaded").replaceAll("&", "§"));
 				break;
 			}
 		}

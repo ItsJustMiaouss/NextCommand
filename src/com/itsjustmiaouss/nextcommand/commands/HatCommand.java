@@ -1,8 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -17,13 +15,6 @@ public class HatCommand implements CommandExecutor {
 
 	public HatCommand(Main main) {
 		this.main = main;
-	}
-	
-	public OfflinePlayer getOfflinePlayer(String name) {
-		for(OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-			if(player.getName().equals(name)) return player;
-		}
-		return null;
 	}
 
 	@Override

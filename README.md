@@ -22,13 +22,9 @@ NextCommand needs the following prerequisites to run properly:
 
 A configuration file is automatically generated the first time you restart your server. It is located in the */plugins/nextcommand/config.yml* directory. In this file, you can edit all the plugin messages and the plugin configuration.
 
-## Supported versions
+## Credits
 
-Here are the stable versions to use and the supported versions of Minecraft:
-
-| Version        | Stable            |Supported version|
-| ---------------| ------------------|-----------------|
-|v2.4-alpha      |:x:                |1.15.2           |
+[bStats](https://bstats.org/)
 
 ## Reporting a Vulnerability
 

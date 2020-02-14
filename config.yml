@@ -11,16 +11,25 @@
 # nextcommand.repair
 # nextcommand.spawn (.set)
 # nextcommand.broadcast
+# nextcommand.bypassprotection
 
 # Main
 prefix: "&8[&aNextCommand&8]"
 prefix-error: "&8[&cNextCommand&8]"
-console-no-player: "&7You must be a player to use this command !"
-no-permission: "&7You do not have permission to use this command !"
-player-not-found: "&7The player has not been found !"
+console-no-player: "&7You must be a player to use this command!"
+no-permission: "&7You do not have permission to use this command!"
+player-not-found: "&7The player has not been found!"
 config-reloaded: "&7The configuration file has been &asuccessfully &7reloaded!"
 # Use {ERROR} to replace the error message
 exception: "&7A mistake has been made! Please check the configuration file ({ERROR})."
+
+# Protection
+commandprotection:
+  enable-protection: true
+  protection-message: "&cCommand protection is activated, so you can't use this command!"
+  protection-list:
+    - example1
+    - example2
 
 # Join/Quit Events
 join-event:
