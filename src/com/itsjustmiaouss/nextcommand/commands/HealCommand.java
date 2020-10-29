@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -11,7 +12,7 @@ import com.itsjustmiaouss.nextcommand.Main;
 
 public class HealCommand implements CommandExecutor {
 	
-	private Main main;
+	private final Main main;
 
 	public HealCommand(Main main) {
 		this.main = main;
@@ -37,7 +38,7 @@ public class HealCommand implements CommandExecutor {
 		int maxHealthLevel = 20;
 		
 		if(args.length == 0) {
-			if(!p.hasPermission("nextcommand.feed")) {
+			if(!Utils.hasPermission(p, "nextcommand.heal")) {
 				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 				return true;
 			}
@@ -53,7 +54,7 @@ public class HealCommand implements CommandExecutor {
 		}
 		
 		if(args.length >= 1) {
-			if(!p.hasPermission("nextcommand.feed.other")) {
+			if(!Utils.hasPermission(p, "nextcommand.heal.other")) {
 			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 			return true;
 			}

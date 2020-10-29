@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -11,7 +12,7 @@ import com.itsjustmiaouss.nextcommand.Main;
 
 public class GodCommand implements CommandExecutor {
 	
-	private Main main;
+	private final Main main;
 
 	public GodCommand(Main main) {
 		this.main = main;
@@ -36,7 +37,7 @@ public class GodCommand implements CommandExecutor {
 		Player p =(Player)sender;
 		
 		if(args.length == 0) {
-			if(!p.hasPermission("nextcommand.god")) {
+			if(!Utils.hasPermission(p, "nextcommand.god")) {
 				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 				return true;
 			}
@@ -53,7 +54,7 @@ public class GodCommand implements CommandExecutor {
 		}
 		
 		if(args.length >= 1) {
-			if(!p.hasPermission("nextcommand.god.other")) {
+			if(!Utils.hasPermission(p, "nextcommand.god.other")) {
 			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 			return true;
 			}

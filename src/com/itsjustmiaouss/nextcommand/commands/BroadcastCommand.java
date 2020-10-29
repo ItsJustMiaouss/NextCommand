@@ -1,6 +1,7 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
 
+import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,7 +14,7 @@ import net.md_5.bungee.api.ChatColor;
 
 public class BroadcastCommand implements CommandExecutor {
 	
-	private Main main;
+	private final Main main;
 
 	public BroadcastCommand(Main main) {
 		this.main = main;
@@ -21,22 +22,15 @@ public class BroadcastCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
 
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(main.prefixerror + main.getConfig().getString("console-no-player").replaceAll("&", "§"));
-			return true;
-		}
 		
-		Player p =(Player)sender;
-		
-		if(!p.hasPermission("nextcommand.broadcast")) {
-			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
+		if(!Utils.hasPermissionSender(sender, "nextcommand.broadcast")) {
+			sender.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 			return true;
 		}
 		
 		if(args.length == 0) {
-			p.sendMessage(main.prefixerror + "§7/broadcast <message>");
+			sender.sendMessage(main.prefixerror + "§7/broadcast <message>");
 			return true;
 		}
 		

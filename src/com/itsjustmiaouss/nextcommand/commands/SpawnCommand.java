@@ -3,6 +3,7 @@ package com.itsjustmiaouss.nextcommand.commands;
 import java.util.Arrays;
 import java.util.List;
 
+import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -16,7 +17,7 @@ import com.itsjustmiaouss.nextcommand.Main;
 
 public class SpawnCommand implements CommandExecutor, TabCompleter {
 	
-	private Main main;
+	private final Main main;
 
 	public SpawnCommand(Main main) {
 		this.main = main;
@@ -34,17 +35,18 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
 		Player p =(Player)sender;
 		
 		if(args.length == 0) {
-			if(!p.hasPermission("nextcommand.spawn")) {
+			if(!Utils.hasPermission(p, "nextcommand.spawn")) {
 				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 				return true;
 			}
-					String w = main.getConfig().getString("spawncommand.location.World");
-					Double x = main.getConfig().getDouble("spawncommand.location.X");
-					Double y = main.getConfig().getDouble("spawncommand.location.Y");
-					Double z = main.getConfig().getDouble("spawncommand.location.Z");
-					Float yaw = (float) main.getConfig().getDouble("spawncommand.location.Yaw");
-					Float pitch = (float) main.getConfig().getDouble("spawncommand.location.Pitch");
-					if(w == "") {
+
+					String w = main.getConfig().getString("spawncommand.location.world");
+					double x = main.getConfig().getDouble("spawncommand.location.x");
+					double y = main.getConfig().getDouble("spawncommand.location.y");
+					double z = main.getConfig().getDouble("spawncommand.location.z");
+					float yaw = (float) main.getConfig().getDouble("spawncommand.location.yaw");
+					float pitch = (float) main.getConfig().getDouble("spawncommand.location.pitch");
+					if(w.isEmpty()) {
 						p.sendMessage(main.prefixerror + main.getConfig().getString("spawncommand.no-spawn").replaceAll("&", "§"));
 						return true;
 					}
@@ -57,17 +59,17 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
 		}
 		
 		if(args.length >= 1) {
-			if(!p.hasPermission("nextcommand.spawn.set")) {
+			if(Utils.hasPermission(p, "nextcommand.spawn.set")) {
 			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 			return true;
 			}
 			
-			main.getConfig().set("spawncommand.location.World", p.getWorld().getName());
-			main.getConfig().set("spawncommand.location.X", p.getLocation().getX());
-			main.getConfig().set("spawncommand.location.Y", p.getLocation().getY());
-			main.getConfig().set("spawncommand.location.Z", p.getLocation().getZ());
-			main.getConfig().set("spawncommand.location.Yaw", p.getLocation().getYaw());
-			main.getConfig().set("spawncommand.location.Pitch", p.getLocation().getPitch());
+			main.getConfig().set("spawncommand.location.world", p.getWorld().getName());
+			main.getConfig().set("spawncommand.location.x", p.getLocation().getX());
+			main.getConfig().set("spawncommand.location.y", p.getLocation().getY());
+			main.getConfig().set("spawncommand.location.z", p.getLocation().getZ());
+			main.getConfig().set("spawncommand.location.yaw", p.getLocation().getYaw());
+			main.getConfig().set("spawncommand.location.pitch", p.getLocation().getPitch());
 			main.saveConfig();
 			p.sendMessage(main.prefix + main.getConfig().getString("spawncommand.spawn-set").replaceAll("&", "§"));
 		}
