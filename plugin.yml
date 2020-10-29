@@ -1,7 +1,8 @@
 name: NextCommand
-version: v2.5-alpha
+version: 2.6-alpha
 author: ItsJustMiaouss
 description: This plugin adds essential commands to Minecraft servers
+api-version: 1.16
 website: https://github.com/ItsJustMiaouss/NextCommand
 main: com.itsjustmiaouss.nextcommand.Main
 commands:
@@ -13,7 +14,7 @@ commands:
   feed:
     description: Feed players
   heal:
-    description: Heal player
+    description: Heal players
   god:
     description: Enable/Disabled god mod
   hat:

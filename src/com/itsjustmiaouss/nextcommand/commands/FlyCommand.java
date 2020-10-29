@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -11,7 +12,7 @@ import com.itsjustmiaouss.nextcommand.Main;
 
 public class FlyCommand implements CommandExecutor {
 	
-	private Main main;
+	private final Main main;
 
 	public FlyCommand(Main main) {
 		this.main = main;
@@ -36,12 +37,12 @@ public class FlyCommand implements CommandExecutor {
 		Player p =(Player)sender;
 		
 		if(args.length == 0) {
-			if(!p.hasPermission("nextcommand.fly")) {
+			if(!Utils.hasPermission(p, "nextcommand.fly")) {
 				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 				return true;
 			}
 			
-				if(p.getAllowFlight() == true) {
+				if(p.getAllowFlight()) {
 					p.setAllowFlight(false);
 					p.setFlying(false);
 					p.sendMessage(main.prefix + main.getConfig().getString("flycommand.fly-disabled").replaceAll("&", "§"));
@@ -55,7 +56,7 @@ public class FlyCommand implements CommandExecutor {
 		}
 		
 		if(args.length >= 1) {
-			if(!p.hasPermission("nextcommand.fly.other")) {
+			if(!Utils.hasPermission(p, "nextcommand.fly.other")) {
 				
 			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 			return true;
@@ -67,7 +68,7 @@ public class FlyCommand implements CommandExecutor {
 				}
 				
 				Player t = Bukkit.getPlayer(args[0]);
-				if(t.getAllowFlight() == true) {
+				if(t.getAllowFlight()) {
 					t.setAllowFlight(false);
 					t.setFlying(false);
 					t.sendMessage(main.prefix + main.getConfig().getString("flycommand.fly-disabled").replaceAll("&", "§"));

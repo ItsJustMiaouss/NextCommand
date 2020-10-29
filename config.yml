@@ -1,6 +1,14 @@
-# This is the configuration file on the NextCommand plugin.
-
+###########################################################################
+#  _   _           _    _____                                          _  #
+# | \ | |         | |  / ____|                                        | | #
+# |  \| | _____  _| |_| |     ___  _ __ ___  _ __ ___   __ _ _ __   __| | #
+# | . ` |/ _ \ \/ / __| |    / _ \| '_ ` _ \| '_ ` _ \ / _` | '_ \ / _` | #
+# | |\  |  __/>  <| |_| |___| (_) | | | | | | | | | | | (_| | | | | (_| | #
+# |_| \_|\___/_/\_\\__|\_____\___/|_| |_| |_|_| |_| |_|\__,_|_| |_|\__,_| #
+#                                                                         #
+###########################################################################
 # Permission list:
+# nextcommand.*
 # nextcommand.reload
 # nextcommand.fly (.other)
 # nextcommand.heal (.other)
@@ -24,7 +32,7 @@ exception: "&7A mistake has been made! Please check the configuration file ({ERR
 
 # Protection
 commandprotection:
-  enable-protection: true
+  enable-protection: false
   protection-message: "&cCommand protection is activated, so you can't use this command!"
   # List here all commands to be deactivated
   protection-list:
@@ -86,13 +94,21 @@ spawncommand:
   no-spawn: "&7No spawn points have been set!"
   spawn-set: "&7The spawn point has been set!"
   location:
-    World:
-    X:
-    Y:
-    Z:
-    Yaw:
-    Pitch:
+    world:
+    x:
+    y:
+    z:
+    yaw:
+    pitch:
     
 # BroadcastCommand
 broadcastcommand:
   broadcast: "&8[&aBroadcast&8] &7{MESSAGE}"
+
+# Explosions Protection
+# True = Enable explosions | False = Disable explosions
+explosion:
+  tnt: true
+  creeper: true
+  minecart: true
+  wither: true

@@ -2,6 +2,7 @@ package com.itsjustmiaouss.nextcommand.events;
 
 import java.util.List;
 
+import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,7 +15,7 @@ import com.itsjustmiaouss.nextcommand.Main;
 
 public class PlayerEvent implements Listener {
 	
-	private Main main;
+	private final Main main;
 
 	public PlayerEvent(Main main) {
 		this.main = main;
@@ -22,14 +23,14 @@ public class PlayerEvent implements Listener {
 	
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent e) {
-		if(main.getConfig().getBoolean("join-event.enable-join-message") == true) {
+		if(main.getConfig().getBoolean("join-event.enable-join-message")) {
 			e.setJoinMessage(main.getConfig().getString("join-event.join-message").replaceAll("&", "§").replace("{PLAYER}", e.getPlayer().getName()));
 		}
 	}
 	
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent e) {
-		if(main.getConfig().getBoolean("join-event.enable-quit-message") == true) {
+		if(main.getConfig().getBoolean("join-event.enable-quit-message")) {
 			e.setQuitMessage(main.getConfig().getString("join-event.quit-message").replaceAll("&", "§").replace("{PLAYER}", e.getPlayer().getName()));
 		}
 	}
@@ -50,10 +51,10 @@ public class PlayerEvent implements Listener {
 		Player p = e.getPlayer();
 		List<String> commands = main.getConfig().getStringList("commandprotection.protection-list");
 		
-		if(main.getConfig().getBoolean("commandprotection.enable-protection") == true) {	
+		if(main.getConfig().getBoolean("commandprotection.enable-protection")) {
 			for(String str : commands) {
 				if(e.getMessage().equalsIgnoreCase("/" + str)) {	
-					if(!p.hasPermission("nextcommand.bypassprotection")) {
+					if(!Utils.hasPermission(p, "nextcommand.bypassprotection")) {
 						e.setCancelled(true);
 						p.sendMessage(main.prefixerror + main.getConfig().getString("commandprotection.protection-message").replaceAll("&", "§"));
 						return;

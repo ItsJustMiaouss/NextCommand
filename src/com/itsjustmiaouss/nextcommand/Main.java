@@ -3,6 +3,7 @@ package com.itsjustmiaouss.nextcommand;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.itsjustmiaouss.nextcommand.events.EntityEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,7 +33,8 @@ public class Main extends JavaPlugin implements Listener {
 		
 		getServer().getPluginManager().registerEvents(new PlayerEvent(this), this);
 		getServer().getPluginManager().registerEvents(new ChatEvent(this), this);
-		
+		getServer().getPluginManager().registerEvents(new EntityEvent(this), this);
+
 		getCommand("nextcommand").setExecutor(new NextCommand(this));
 		getCommand("fly").setExecutor(new FlyCommand(this));
 		getCommand("feed").setExecutor(new FeedCommand(this));

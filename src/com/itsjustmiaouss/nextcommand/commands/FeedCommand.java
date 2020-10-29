@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -11,7 +12,7 @@ import com.itsjustmiaouss.nextcommand.Main;
 
 public class FeedCommand implements CommandExecutor {
 	
-	private Main main;
+	private final Main main;
 
 	public FeedCommand(Main main) {
 		this.main = main;
@@ -38,7 +39,7 @@ public class FeedCommand implements CommandExecutor {
 		float saturation = 0.6F;
 		
 		if(args.length == 0) {
-			if(!p.hasPermission("nextcommand.feed")) {
+			if(!Utils.hasPermission(p, "nextcommand.feed")) {
 				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 				return true;
 			}
@@ -55,7 +56,7 @@ public class FeedCommand implements CommandExecutor {
 		}
 		
 		if(args.length >= 1) {
-			if(!p.hasPermission("nextcommand.feed.other")) {
+			if(!Utils.hasPermission(p, "nextcommand.feed.other")) {
 			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 			return true;
 			}

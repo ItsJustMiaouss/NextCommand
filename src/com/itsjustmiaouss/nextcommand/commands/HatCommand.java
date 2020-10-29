@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,7 +12,7 @@ import com.itsjustmiaouss.nextcommand.Main;
 
 public class HatCommand implements CommandExecutor {
 	
-	private Main main;
+	private final Main main;
 
 	public HatCommand(Main main) {
 		this.main = main;
@@ -29,7 +30,7 @@ public class HatCommand implements CommandExecutor {
 		Player p =(Player)sender;
 		
 		if(args.length == 0) {
-			if(!p.hasPermission("nextcommand.hat")) {
+			if(!Utils.hasPermission(p, "nextcommand.hat")) {
 				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 				return true;
 			}

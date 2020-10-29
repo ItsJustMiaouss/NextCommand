@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.events;
 
+import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -9,7 +10,7 @@ import com.itsjustmiaouss.nextcommand.Main;
 
 public class ChatEvent implements Listener {
 	
-	private Main main;
+	private final Main main;
 
 	public ChatEvent(Main main) {
 		this.main = main;
@@ -19,13 +20,13 @@ public class ChatEvent implements Listener {
 	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
 		String m = e.getMessage();
-		if(p.hasPermission("nextcommand.chatcolors")) {
-			if(main.getConfig().getBoolean("chatevent.allow-custom-colors") == true) {
+		if(Utils.hasPermission(p, "nextcommand.chatcolors")) {
+			if(main.getConfig().getBoolean("chatevent.allow-custom-colors")) {
 				m = m.replaceAll("&", "§");
 				e.setMessage(m);
 			}
 		}
-		if(main.getConfig().getBoolean("chatevent.allow-custom-format") == true) {
+		if(main.getConfig().getBoolean("chatevent.allow-custom-format")) {
 			e.setFormat(main.getConfig().getString("chatevent.custom-format").replaceAll("&", "§").replace("{PLAYER}", "%1$s").replace("{MESSAGE}", "%2$s")); // %1$s » %2$s
 		}
 	}
