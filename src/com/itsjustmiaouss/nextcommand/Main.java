@@ -3,20 +3,13 @@ package com.itsjustmiaouss.nextcommand;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.itsjustmiaouss.nextcommand.commands.*;
 import com.itsjustmiaouss.nextcommand.events.EntityEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.itsjustmiaouss.nextcommand.bstats.Metrics;
-import com.itsjustmiaouss.nextcommand.commands.BroadcastCommand;
-import com.itsjustmiaouss.nextcommand.commands.FeedCommand;
-import com.itsjustmiaouss.nextcommand.commands.FlyCommand;
-import com.itsjustmiaouss.nextcommand.commands.GodCommand;
-import com.itsjustmiaouss.nextcommand.commands.HatCommand;
-import com.itsjustmiaouss.nextcommand.commands.HealCommand;
-import com.itsjustmiaouss.nextcommand.commands.NextCommand;
-import com.itsjustmiaouss.nextcommand.commands.SpawnCommand;
 import com.itsjustmiaouss.nextcommand.events.ChatEvent;
 import com.itsjustmiaouss.nextcommand.events.PlayerEvent;
 
@@ -43,6 +36,7 @@ public class Main extends JavaPlugin implements Listener {
 		getCommand("hat").setExecutor(new HatCommand(this));
 		getCommand("spawn").setExecutor(new SpawnCommand(this));
 		getCommand("broadcast").setExecutor(new BroadcastCommand(this));
+		getCommand("clear").setExecutor(new ClearCommand(this));
 		
 		int pluginId = 6498;
 		@SuppressWarnings("unused")

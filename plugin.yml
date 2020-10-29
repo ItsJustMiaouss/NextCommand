@@ -7,14 +7,14 @@ website: https://github.com/ItsJustMiaouss/NextCommand
 main: com.itsjustmiaouss.nextcommand.Main
 commands:
   nextcommand:
-    description: Main plugin commands
+    description: Main command
     aliases: nc
   fly:
     description: Enable/Disable fly
   feed:
-    description: Feed players
+    description: Feed player(s)
   heal:
-    description: Heal players
+    description: Heal player(s)
   god:
     description: Enable/Disabled god mod
   hat:
@@ -24,3 +24,5 @@ commands:
   broadcast:
     description: Broadcast a message on whole server
     aliases: bc
+  clear:
+    description: Clear inventory of player

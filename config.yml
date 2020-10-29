@@ -18,6 +18,7 @@
 # nextcommand.repair
 # nextcommand.spawn (.set)
 # nextcommand.broadcast
+# nextcommand.clear (.other)
 # nextcommand.bypassprotection
 
 # Main
@@ -100,6 +101,12 @@ spawncommand:
     z:
     yaw:
     pitch:
+
+# ClearCommand
+clearcommand:
+  cleared: "&7You have cleared your inventory"
+  cleared-sender: "&7You have cleared &a{PLAYER}"
+  cleared-other: "&a{PLAYER} &7has cleared your inventory"
     
 # BroadcastCommand
 broadcastcommand:
