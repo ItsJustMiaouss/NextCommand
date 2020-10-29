@@ -46,7 +46,7 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
 					double z = main.getConfig().getDouble("spawncommand.location.z");
 					float yaw = (float) main.getConfig().getDouble("spawncommand.location.yaw");
 					float pitch = (float) main.getConfig().getDouble("spawncommand.location.pitch");
-					if(w.isEmpty()) {
+					if(w == "") {
 						p.sendMessage(main.prefixerror + main.getConfig().getString("spawncommand.no-spawn").replaceAll("&", "§"));
 						return true;
 					}
@@ -57,9 +57,9 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
 						p.sendMessage(main.prefixerror + main.getConfig().getString("exception").replaceAll("&", "§").replace("{ERROR}", e.getMessage()));
 					}
 		}
-		
+
 		if(args.length >= 1) {
-			if(Utils.hasPermission(p, "nextcommand.spawn.set")) {
+			if(!Utils.hasPermission(p, "nextcommand.spawn.set")) {
 			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
 			return true;
 			}
