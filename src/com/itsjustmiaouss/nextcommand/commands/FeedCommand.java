@@ -17,14 +17,6 @@ public class FeedCommand implements CommandExecutor {
 	public FeedCommand(Main main) {
 		this.main = main;
 	}
-	
-	public OfflinePlayer getOfflinePlayer(String name) {
-		for(OfflinePlayer player : Bukkit.getOfflinePlayers()) {
-			if(player.getName().equals(name)) return player;
-		}
-		return null;
-	}
-	
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -61,7 +53,7 @@ public class FeedCommand implements CommandExecutor {
 			return true;
 			}
 			
-				if(getOfflinePlayer(args[0]) == null) {
+				if(Utils.getOfflinePlayer(args[0]) == null) {
 					p.sendMessage(main.prefixerror + main.getConfig().getString("player-not-found").replaceAll("&", "§"));
 					return true;
 				}
