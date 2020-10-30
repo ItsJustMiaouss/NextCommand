@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.Main;
 import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -7,8 +8,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import com.itsjustmiaouss.nextcommand.Main;
 
 public class HatCommand implements CommandExecutor {
 	
@@ -22,7 +21,7 @@ public class HatCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(main.prefixerror + main.getConfig().getString("console-no-player").replaceAll("&", "§"));
+			sender.sendMessage(Utils.getString("console-no-player", main));
 			return true;
 		}
 		
@@ -30,26 +29,25 @@ public class HatCommand implements CommandExecutor {
 		Player p =(Player)sender;
 		
 		if(args.length == 0) {
-			if(!Utils.hasPermission(p, "nextcommand.hat")) {
-				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
+
+			if (!Utils.hasPermission(p, "nextcommand.hat", main)) return false;
+
+			ItemStack hand = p.getInventory().getItemInMainHand();
+			ItemStack head = p.getInventory().getHelmet();
+
+			if (hand == null || hand.getType() == Material.AIR) {
+				p.sendMessage(Utils.getErrorString("hatcommand.no-placed", main));
 				return true;
 			}
 
-				ItemStack hand = p.getInventory().getItemInMainHand();
-				ItemStack head = p.getInventory().getHelmet();
-				
-				if(hand == null || hand.getType() == Material.AIR) {
-					p.sendMessage(main.prefixerror + main.getConfig().getString("hatcommand.no-placed").replaceAll("&", "§"));
-					return true;
-				}
-				
-				p.getInventory().setHelmet(hand);
-				p.getInventory().remove(hand);
-				p.sendMessage(main.prefixerror + main.getConfig().getString("hatcommand.placed").replaceAll("&", "§"));
-				
-				if(head != null && head.getType() != Material.AIR) {
-					p.getInventory().addItem(head);
-				}
+			p.getInventory().setHelmet(hand);
+			p.getInventory().remove(hand);
+			p.sendMessage(Utils.getErrorString("hatcommand.placed", main));
+
+			if (head != null && head.getType() != Material.AIR) {
+				p.getInventory().addItem(head);
+			}
+
 		}	
 		return false;
 	}

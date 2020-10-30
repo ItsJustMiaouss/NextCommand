@@ -1,16 +1,13 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
 
+import com.itsjustmiaouss.nextcommand.Main;
 import com.itsjustmiaouss.nextcommand.utils.Utils;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-
-import com.itsjustmiaouss.nextcommand.Main;
-
-import net.md_5.bungee.api.ChatColor;
 
 public class BroadcastCommand implements CommandExecutor {
 	
@@ -23,26 +20,22 @@ public class BroadcastCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-		
-		if(!Utils.hasPermissionSender(sender, "nextcommand.broadcast")) {
-			sender.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
+
+		if (!Utils.hasPermissionSender(sender, "nextcommand.broadcast", main)) return false;
+
+		if (args.length == 0) {
+			sender.sendMessage(main.error_prefix + "§7/broadcast <message>");
 			return true;
 		}
-		
-		if(args.length == 0) {
-			sender.sendMessage(main.prefixerror + "§7/broadcast <message>");
-			return true;
-		}
-		
-		if(args.length >= 1) {
+
+		if (args.length >= 1) {
 			StringBuilder sb = new StringBuilder();
-			for(String arg : args) {
+			for (String arg : args) {
 				sb.append(arg + " ");
 			}
 			Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', main.getConfig().getString("broadcastcommand.broadcast").replaceAll("&", "§").replace("{MESSAGE}", sb)));
-			return true;
 		}
-		
+
 		return false;
 	}
 }
