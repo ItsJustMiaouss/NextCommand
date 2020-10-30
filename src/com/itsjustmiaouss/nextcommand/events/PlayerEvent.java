@@ -1,7 +1,6 @@
 package com.itsjustmiaouss.nextcommand.events;
 
-import java.util.List;
-
+import com.itsjustmiaouss.nextcommand.Main;
 import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,7 +10,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import com.itsjustmiaouss.nextcommand.Main;
+import java.util.List;
 
 public class PlayerEvent implements Listener {
 	
@@ -53,12 +52,14 @@ public class PlayerEvent implements Listener {
 		
 		if(main.getConfig().getBoolean("commandprotection.enable-protection")) {
 			for(String str : commands) {
-				if(e.getMessage().equalsIgnoreCase("/" + str)) {	
-					if(!Utils.hasPermission(p, "nextcommand.bypassprotection")) {
+				if (e.getMessage().equalsIgnoreCase("/" + str)) {
+
+					if (!p.hasPermission("nextcommand.bypassprotection")) {
 						e.setCancelled(true);
-						p.sendMessage(main.prefixerror + main.getConfig().getString("commandprotection.protection-message").replaceAll("&", "§"));
+						p.sendMessage(Utils.getErrorString("commandprotection.protection-message", main));
 						return;
 					}
+
 				}
 			}
 		}

@@ -18,39 +18,30 @@ public class ClearCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if(!(sender instanceof Player)) {
-            sender.sendMessage(main.prefixerror + main.getConfig().getString("console-no-player").replaceAll("&", "§"));
+            sender.sendMessage(Utils.getErrorString("console-no-player", main));
             return true;
         }
 
         Player p = (Player)sender;
 
-        if(args.length == 0){
+        if (args.length == 0) {
 
-            if(!Utils.hasPermission(p, "nextcommand.clear")){
-                p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
-                return true;
-            }
+            if (!Utils.hasPermission(p, "nextcommand.clear", main)) return false;
 
             p.getInventory().clear();
-            p.sendMessage(main.prefix + main.getConfig().getString("clearcommand.cleared").replaceAll("&", "§"));
+            p.sendMessage(Utils.getString("clearcommand.cleared", main));
 
-        } else if(args.length >= 1){
+        } else if (args.length >= 1) {
 
-            if(!Utils.hasPermission(p, "nextcommand.clear.other")){
-                p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
-                return true;
-            }
+            if (!Utils.hasPermission(p, "nextcommand.clear.other", main)) return false;
 
-            if(Utils.getOfflinePlayer(args[0]) == null){
-                p.sendMessage(main.prefixerror + main.getConfig().getString("player-not-found").replaceAll("&", "§"));
-                return true;
-            }
+            if (!Utils.isOfflinePlayer(args[0], p, main)) return false;
 
             Player t = Bukkit.getPlayer(args[0]);
 
             t.getInventory().clear();
-            p.sendMessage(main.prefix + main.getConfig().getString("clearcommand.cleared-sender").replaceAll("&", "§").replace("{PLAYER}", t.getName()));
-            t.sendMessage(main.prefix + main.getConfig().getString("clearcommand.cleared-other").replaceAll("&", "§").replace("{PLAYER}", t.getName()));
+            p.sendMessage(Utils.getString("clearcommand.cleared-sender", main).replace("{PLAYER}", t.getName()));
+            t.sendMessage(Utils.getString("clearcommand.cleared-other", main).replace("{PLAYER}", t.getName()));
 
         }
 

@@ -1,14 +1,12 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.Main;
 import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.itsjustmiaouss.nextcommand.Main;
 
 public class FlyCommand implements CommandExecutor {
 	
@@ -22,57 +20,47 @@ public class FlyCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(main.prefixerror + main.getConfig().getString("console-no-player").replaceAll("&", "§"));
+			sender.sendMessage(Utils.getErrorString("console-no-player", main));
 			return true;
 		}
 		
 		Player p =(Player)sender;
 		
 		if(args.length == 0) {
-			if(!Utils.hasPermission(p, "nextcommand.fly")) {
-				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
-				return true;
+
+			if (!Utils.hasPermission(p, "nextcommand.fly", main)) return false;
+
+			if (p.getAllowFlight()) {
+				p.setAllowFlight(false);
+				p.setFlying(false);
+				p.sendMessage(Utils.getString("flycommand.fly-disabled", main));
+			} else {
+				p.setAllowFlight(true);
+				p.setFlying(true);
+				p.sendMessage(Utils.getString("flycommand.fly-enabled", main));
 			}
-			
-				if(p.getAllowFlight()) {
-					p.setAllowFlight(false);
-					p.setFlying(false);
-					p.sendMessage(main.prefix + main.getConfig().getString("flycommand.fly-disabled").replaceAll("&", "§"));
-					return true;
-				} else {
-					p.setAllowFlight(true);
-					p.setFlying(true);
-					p.sendMessage(main.prefix + main.getConfig().getString("flycommand.fly-enabled").replaceAll("&", "§"));
-					return true;
-				}
+
 		}
 		
 		if(args.length >= 1) {
-			if(!Utils.hasPermission(p, "nextcommand.fly.other")) {
-				
-			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
-			return true;
+
+			if (!Utils.hasPermission(p, "nextcommand.fly.other", main)) return false;
+
+			if (!Utils.isOfflinePlayer(args[0], p, main)) return false;
+
+			Player t = Bukkit.getPlayer(args[0]);
+			if (t.getAllowFlight()) {
+				t.setAllowFlight(false);
+				t.setFlying(false);
+				t.sendMessage(Utils.getString("flycommand.fly-disabled", main));
+				p.sendMessage(Utils.getString("flycommand.fly-disabled-sender", main).replace("{PLAYER}", t.getPlayer().getName()));
+			} else {
+				t.setAllowFlight(true);
+				t.setFlying(true);
+				t.sendMessage(Utils.getString("flycommand.fly-enabled", main));
+				p.sendMessage(Utils.getString("flycommand.fly-enabled-sender", main).replace("{PLAYER}", t.getPlayer().getName()));
 			}
-			
-				if(Utils.getOfflinePlayer(args[0]) == null) {
-					p.sendMessage(main.prefixerror + main.getConfig().getString("player-not-found").replaceAll("&", "§"));
-					return true;
-				}
-				
-				Player t = Bukkit.getPlayer(args[0]);
-				if(t.getAllowFlight()) {
-					t.setAllowFlight(false);
-					t.setFlying(false);
-					t.sendMessage(main.prefix + main.getConfig().getString("flycommand.fly-disabled").replaceAll("&", "§"));
-					p.sendMessage(main.prefix + main.getConfig().getString("flycommand.fly-disabled-sender").replaceAll("&", "§").replace("{PLAYER}", t.getPlayer().getName()));
-					return true;
-				} else {
-					t.setAllowFlight(true);
-					t.setFlying(true);
-					t.sendMessage(main.prefix + main.getConfig().getString("flycommand.fly-enabled").replaceAll("&", "§"));
-					p.sendMessage(main.prefix + main.getConfig().getString("flycommand.fly-enabled-sender").replaceAll("&", "§").replace("{PLAYER}", t.getPlayer().getName()));
-					return true;
-				}
+
 		}
 		
 		return false;

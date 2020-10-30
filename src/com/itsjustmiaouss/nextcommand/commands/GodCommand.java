@@ -1,14 +1,12 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.Main;
 import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.itsjustmiaouss.nextcommand.Main;
 
 public class GodCommand implements CommandExecutor {
 	
@@ -22,7 +20,7 @@ public class GodCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(main.prefixerror + main.getConfig().getString("console-no-player").replaceAll("&", "§"));
+			sender.sendMessage(Utils.getErrorString("console-no-player", main));
 			return true;
 		}
 		
@@ -30,45 +28,37 @@ public class GodCommand implements CommandExecutor {
 		Player p =(Player)sender;
 		
 		if(args.length == 0) {
-			if(!Utils.hasPermission(p, "nextcommand.god")) {
-				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
-				return true;
+
+			if (!Utils.hasPermission(p, "nextcommand.god", main)) return false;
+
+			if (main.godPlayer.contains(p)) {
+				main.godPlayer.remove(p);
+				p.sendMessage(Utils.getString("godcommand.god-deactivated", main));
+			} else {
+				main.godPlayer.add(p);
+				p.sendMessage(Utils.getString("godcommand.god-activated", main));
 			}
-			
-				if(main.godPlayer.contains(p)) {
-					main.godPlayer.remove(p);
-					p.sendMessage(main.prefix + main.getConfig().getString("godcommand.god-deactivated").replaceAll("&", "§"));
-					return true;
-				} else {
-					main.godPlayer.add(p);
-					p.sendMessage(main.prefix + main.getConfig().getString("godcommand.god-activated").replaceAll("&", "§"));
-					return true;
-				}
+
 		}
 		
 		if(args.length >= 1) {
-			if(!Utils.hasPermission(p, "nextcommand.god.other")) {
-			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
-			return true;
+
+			if (!Utils.hasPermission(p, "nextcommand.god.other", main)) return false;
+
+			if (!Utils.isOfflinePlayer(args[0], p, main)) return false;
+
+			Player t = Bukkit.getPlayer(args[0]);
+			if (main.godPlayer.contains(t)) {
+				main.godPlayer.remove(t);
+				t.sendMessage(Utils.getString("godcommand.god-deactivated", main));
+				p.sendMessage(Utils.getString("godcommand.god-deactivated-sender", main).replace("{PLAYER}", t.getPlayer().getName()));
+			} else {
+				main.godPlayer.add(t);
+				t.sendMessage(Utils.getString("godcommand.god-activated", main).replaceAll("&", "§"));
+				p.sendMessage(Utils.getString("godcommand.god-activated-sender", main).replaceAll("&", "§").replace("{PLAYER}", t.getPlayer().getName()));
 			}
-			
-				if(Utils.getOfflinePlayer(args[0]) == null) {
-					p.sendMessage(main.prefixerror + main.getConfig().getString("player-not-found").replaceAll("&", "§"));
-					return true;
-				}
-				
-				Player t = Bukkit.getPlayer(args[0]);
-				if(main.godPlayer.contains(t)) {
-					main.godPlayer.remove(t);
-					t.sendMessage(main.prefix + main.getConfig().getString("godcommand.god-deactivated").replaceAll("&", "§"));
-					p.sendMessage(main.prefix + main.getConfig().getString("godcommand.god-deactivated-sender").replaceAll("&", "§").replace("{PLAYER}", t.getPlayer().getName()));
-					return true;
-				} else {
-					main.godPlayer.add(t);
-					t.sendMessage(main.prefix + main.getConfig().getString("godcommand.god-activated").replaceAll("&", "§"));
-					p.sendMessage(main.prefix + main.getConfig().getString("godcommand.god-activated-sender").replaceAll("&", "§").replace("{PLAYER}", t.getPlayer().getName()));
-					return true;
-				}
+			return true;
+
 		}
 		
 		return false;

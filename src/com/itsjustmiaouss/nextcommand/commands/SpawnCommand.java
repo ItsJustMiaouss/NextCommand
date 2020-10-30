@@ -1,8 +1,7 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
-import java.util.Arrays;
-import java.util.List;
-
+import com.google.common.collect.Lists;
+import com.itsjustmiaouss.nextcommand.Main;
 import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -12,8 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import com.google.common.collect.Lists;
-import com.itsjustmiaouss.nextcommand.Main;
+import java.util.Arrays;
+import java.util.List;
 
 public class SpawnCommand implements CommandExecutor, TabCompleter {
 	
@@ -28,42 +27,39 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(main.prefixerror + main.getConfig().getString("console-no-player").replaceAll("&", "§"));
+			sender.sendMessage(Utils.getErrorString("console-no-player", main));
 			return true;
 		}
 		
 		Player p =(Player)sender;
 		
 		if(args.length == 0) {
-			if(!Utils.hasPermission(p, "nextcommand.spawn")) {
-				p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
+
+			if (!Utils.hasPermission(p, "nextcommand.spawn", main)) return false;
+
+			String w = main.getConfig().getString("spawncommand.location.world");
+			double x = main.getConfig().getDouble("spawncommand.location.x");
+			double y = main.getConfig().getDouble("spawncommand.location.y");
+			double z = main.getConfig().getDouble("spawncommand.location.z");
+			float yaw = (float) main.getConfig().getDouble("spawncommand.location.yaw");
+			float pitch = (float) main.getConfig().getDouble("spawncommand.location.pitch");
+			if (w == "") {
+				p.sendMessage(Utils.getErrorString("spawncommand.no-spawn", main));
 				return true;
 			}
+			try {
+				p.sendMessage(Utils.getString("spawncommand.teleportation", main));
+				p.teleport(new Location(Bukkit.getWorld(w), x, y, z, yaw, pitch));
+			} catch (Exception e) {
+				p.sendMessage(Utils.getErrorString("exception", main).replace("{ERROR}", e.getMessage()));
+			}
 
-					String w = main.getConfig().getString("spawncommand.location.world");
-					double x = main.getConfig().getDouble("spawncommand.location.x");
-					double y = main.getConfig().getDouble("spawncommand.location.y");
-					double z = main.getConfig().getDouble("spawncommand.location.z");
-					float yaw = (float) main.getConfig().getDouble("spawncommand.location.yaw");
-					float pitch = (float) main.getConfig().getDouble("spawncommand.location.pitch");
-					if(w == "") {
-						p.sendMessage(main.prefixerror + main.getConfig().getString("spawncommand.no-spawn").replaceAll("&", "§"));
-						return true;
-					}
-					try {
-						p.sendMessage(main.prefix + main.getConfig().getString("spawncommand.teleportation").replaceAll("&", "§"));
-						p.teleport(new Location(Bukkit.getWorld(w), x, y, z, yaw, pitch));
-					} catch (Exception e) {
-						p.sendMessage(main.prefixerror + main.getConfig().getString("exception").replaceAll("&", "§").replace("{ERROR}", e.getMessage()));
-					}
 		}
 
 		if(args.length >= 1) {
-			if(!Utils.hasPermission(p, "nextcommand.spawn.set")) {
-			p.sendMessage(main.prefixerror + main.getConfig().getString("no-permission").replaceAll("&", "§"));
-			return true;
-			}
-			
+
+			if (!Utils.hasPermission(p, "nextcommand.spawn.set", main)) return false;
+
 			main.getConfig().set("spawncommand.location.world", p.getWorld().getName());
 			main.getConfig().set("spawncommand.location.x", p.getLocation().getX());
 			main.getConfig().set("spawncommand.location.y", p.getLocation().getY());
@@ -71,11 +67,9 @@ public class SpawnCommand implements CommandExecutor, TabCompleter {
 			main.getConfig().set("spawncommand.location.yaw", p.getLocation().getYaw());
 			main.getConfig().set("spawncommand.location.pitch", p.getLocation().getPitch());
 			main.saveConfig();
-			p.sendMessage(main.prefix + main.getConfig().getString("spawncommand.spawn-set").replaceAll("&", "§"));
+			p.sendMessage(Utils.getString("spawncommand.spawn-set", main));
 		}
-		
-		
-		
+
 		return false;
 	}
 	
