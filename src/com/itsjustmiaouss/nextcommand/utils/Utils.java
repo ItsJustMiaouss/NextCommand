@@ -6,44 +6,41 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class Utils {
 
-    public static boolean hasPermission(Player p, String permission, Main main) {
+    private static final Main main = Main.getInstance();
 
-        if (!p.hasPermission(permission) || !p.hasPermission("nextcommand.*")) {
-            p.sendMessage(getErrorString("no-permission", main));
+    public static boolean hasPermission(Player player, String permission) {
+        if (!player.hasPermission(permission) || !player.hasPermission("nextcommand.*")) {
+            player.sendMessage(getErrorString("no-permission"));
             return false;
         }
         return true;
-
     }
 
-    public static boolean hasPermissionSender(CommandSender s, String permission, Main main) {
-
-        if (!s.hasPermission(permission) || !s.hasPermission("nextcommand.*")) {
-            s.sendMessage(getErrorString("no-permission", main));
+    public static boolean hasPermission(CommandSender sender, String permission) {
+        if (!sender.hasPermission(permission) || !sender.hasPermission("nextcommand.*")) {
+            sender.sendMessage(getErrorString("no-permission"));
             return false;
         }
         return true;
-
     }
 
-    public static boolean isOfflinePlayer(String name, Player p, Main main) {
-        for (OfflinePlayer player : Bukkit.getOfflinePlayers()) {
+    public static boolean isOfflinePlayer(String name, Player player) {
+        for (OfflinePlayer offlinePlayer : Bukkit.getOfflinePlayers()) {
             if (player.getName().equals(name)) {
                 return true;
             }
         }
-        p.sendMessage(getErrorString("player-not-found", main));
+        player.sendMessage(getErrorString("player-not-found"));
         return false;
     }
 
-    public static String getString(String string, Main main) {
+    public static String getString(String string) {
         return main.prefix + main.getConfig().getString(string).replaceAll("&", "§");
     }
 
-    public static String getErrorString(String string, Main main) {
+    public static String getErrorString(String string) {
         return main.error_prefix + main.getConfig().getString(string).replaceAll("&", "§");
     }
 

@@ -15,59 +15,54 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SpawnCommand implements CommandExecutor, TabCompleter {
-	
-	private final Main main;
 
-	public SpawnCommand(Main main) {
-		this.main = main;
-	}
-	
+	private static final Main main = Main.getInstance();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(Utils.getErrorString("console-no-player", main));
+
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Utils.getErrorString("console-no-player"));
 			return true;
 		}
-		
-		Player p =(Player)sender;
-		
-		if(args.length == 0) {
 
-			if (!Utils.hasPermission(p, "nextcommand.spawn", main)) return false;
+		Player player = (Player) sender;
 
-			String w = main.getConfig().getString("spawncommand.location.world");
+		if (args.length == 0) {
+
+			if (!Utils.hasPermission(player, "nextcommand.spawn")) return false;
+
+			String world = main.getConfig().getString("spawncommand.location.world");
 			double x = main.getConfig().getDouble("spawncommand.location.x");
 			double y = main.getConfig().getDouble("spawncommand.location.y");
 			double z = main.getConfig().getDouble("spawncommand.location.z");
 			float yaw = (float) main.getConfig().getDouble("spawncommand.location.yaw");
 			float pitch = (float) main.getConfig().getDouble("spawncommand.location.pitch");
-			if (w == "") {
-				p.sendMessage(Utils.getErrorString("spawncommand.no-spawn", main));
+			if (world == "") {
+				player.sendMessage(Utils.getErrorString("spawncommand.no-spawn"));
 				return true;
 			}
 			try {
-				p.sendMessage(Utils.getString("spawncommand.teleportation", main));
-				p.teleport(new Location(Bukkit.getWorld(w), x, y, z, yaw, pitch));
+				player.sendMessage(Utils.getString("spawncommand.teleportation"));
+				player.teleport(new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch));
 			} catch (Exception e) {
-				p.sendMessage(Utils.getErrorString("exception", main).replace("{ERROR}", e.getMessage()));
+				player.sendMessage(Utils.getErrorString("exception").replace("{ERROR}", e.getMessage()));
 			}
 
 		}
 
 		if(args.length >= 1) {
 
-			if (!Utils.hasPermission(p, "nextcommand.spawn.set", main)) return false;
+			if (!Utils.hasPermission(player, "nextcommand.spawn.set")) return false;
 
-			main.getConfig().set("spawncommand.location.world", p.getWorld().getName());
-			main.getConfig().set("spawncommand.location.x", p.getLocation().getX());
-			main.getConfig().set("spawncommand.location.y", p.getLocation().getY());
-			main.getConfig().set("spawncommand.location.z", p.getLocation().getZ());
-			main.getConfig().set("spawncommand.location.yaw", p.getLocation().getYaw());
-			main.getConfig().set("spawncommand.location.pitch", p.getLocation().getPitch());
+			main.getConfig().set("spawncommand.location.world", player.getWorld().getName());
+			main.getConfig().set("spawncommand.location.x", player.getLocation().getX());
+			main.getConfig().set("spawncommand.location.y", player.getLocation().getY());
+			main.getConfig().set("spawncommand.location.z", player.getLocation().getZ());
+			main.getConfig().set("spawncommand.location.yaw", player.getLocation().getYaw());
+			main.getConfig().set("spawncommand.location.pitch", player.getLocation().getPitch());
 			main.saveConfig();
-			p.sendMessage(Utils.getString("spawncommand.spawn-set", main));
+			player.sendMessage(Utils.getString("spawncommand.spawn-set"));
 		}
 
 		return false;

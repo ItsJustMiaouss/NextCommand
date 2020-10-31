@@ -26,3 +26,5 @@ commands:
     aliases: bc
   clear:
     description: Clear inventory of player
+  afk:
+    description: Enable/Disable AFK

@@ -19,6 +19,7 @@
 # nextcommand.spawn (.set)
 # nextcommand.broadcast
 # nextcommand.clear (.other)
+# nextcommand.afk
 # nextcommand.bypassprotection
 
 # Main
@@ -67,6 +68,7 @@ flycommand:
 feedcommand:
   fed: "&7You've been fed."
   no-fed: "&7You're not hungry!"
+  # Use {PLAYER} to replace player name
   fed-target: "&7You've fed &a{PLAYER}&7"
   no-fed-target: "&a{PLAYER} &7is not hungry!"
   
@@ -74,6 +76,7 @@ feedcommand:
 healcommand:
   healed: "&7You've been healed"
   no-healed: "&7You don't need care!"
+  # Use {PLAYER} to replace player name
   healed-target: "&7You healed &a{PLAYER}&7"
   no-healed-target: "&a{PLAYER} &7doesn't need care!"
   
@@ -81,6 +84,7 @@ healcommand:
 godcommand:
   god-activated: "&7God mode has been &aenabled"
   god-deactivated: "&7God mode has been &cdisabled"
+  # Use {PLAYER} to replace player name
   god-activated-sender: "&7God mode has been &aenabled &7for &a{PLAYER}"
   god-deactivated-sender: "&7God mode has been &cdisabled &7for &a{PLAYER}"
   
@@ -104,12 +108,24 @@ spawncommand:
 
 # ClearCommand
 clearcommand:
+  clear-exp: false
   cleared: "&7You have cleared your inventory"
+  # Use {PLAYER} to replace player name
   cleared-sender: "&7You have cleared &a{PLAYER}"
   cleared-other: "&a{PLAYER} &7has cleared your inventory"
-    
+
+# AfkCommand
+afkcommand:
+  afk-enabled: "&7You are now AFK"
+  afk-disabled: "&7You are no longer &cAFK"
+  afk-enabled-broadcast: "&a{PLAYER} &7is now AFK"
+  afk-disabled-broadcast: "&c{PLAYER} &7is no longer AFK"
+  # Disable AFK when player moves
+  disable-move: true
+
 # BroadcastCommand
 broadcastcommand:
+  # Use {MESSAGE} to replace message
   broadcast: "&8[&aBroadcast&8] &7{MESSAGE}"
 
 # Explosions Protection

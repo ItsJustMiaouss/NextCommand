@@ -1,6 +1,5 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
-import com.itsjustmiaouss.nextcommand.Main;
 import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -9,51 +8,46 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class HealCommand implements CommandExecutor {
-	
-	private final Main main;
-
-	public HealCommand(Main main) {
-		this.main = main;
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(Utils.getErrorString("console-no-player", main));
+
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Utils.getErrorString("console-no-player"));
 			return true;
 		}
-		
-		Player p =(Player)sender;
+
+		Player player = (Player) sender;
+
 		int maxHealthLevel = 20;
-		
-		if(args.length == 0) {
 
-			if (!Utils.hasPermission(p, "nextcommand.heal", main)) return false;
+		if (args.length == 0) {
 
-			if (p.getHealth() < maxHealthLevel) {
-				p.setHealth(maxHealthLevel);
-				p.sendMessage(Utils.getString("healcommand.healed", main));
+			if (!Utils.hasPermission(player, "nextcommand.heal")) return false;
+
+			if (player.getHealth() < maxHealthLevel) {
+				player.setHealth(maxHealthLevel);
+				player.sendMessage(Utils.getString("healcommand.healed"));
 			} else {
-				p.sendMessage(Utils.getErrorString("healcommand.no-healed", main));
+				player.sendMessage(Utils.getErrorString("healcommand.no-healed"));
 			}
 
 		}
 		
 		if(args.length >= 1) {
 
-			if (!Utils.hasPermission(p, "nextcommand.heal.other", main)) return false;
+			if (!Utils.hasPermission(player, "nextcommand.heal.other")) return false;
 
-			if (!Utils.isOfflinePlayer(args[0], p, main)) return false;
+			if (!Utils.isOfflinePlayer(args[0], player)) return false;
 
-			Player t = Bukkit.getPlayer(args[0]);
+			Player target = Bukkit.getPlayer(args[0]);
 
-			if (t.getHealth() < maxHealthLevel) {
-				t.setHealth(maxHealthLevel);
-				t.sendMessage(Utils.getString("healcommand.healed", main).replace("{PLAYER}", p.getPlayer().getName()));
-				p.sendMessage(Utils.getString("healcommand.healed-target", main).replace("{PLAYER}", t.getPlayer().getName()));
+			if (target.getHealth() < maxHealthLevel) {
+				target.setHealth(maxHealthLevel);
+				target.sendMessage(Utils.getString("healcommand.healed").replace("{PLAYER}", player.getPlayer().getName()));
+				player.sendMessage(Utils.getString("healcommand.healed-target").replace("{PLAYER}", target.getPlayer().getName()));
 			} else {
-				p.sendMessage(Utils.getErrorString("healcommand.no-healed-target", main).replace("{PLAYER}", t.getPlayer().getName()));
+				player.sendMessage(Utils.getErrorString("healcommand.no-healed-target").replace("{PLAYER}", target.getPlayer().getName()));
 			}
 		}
 		

@@ -13,30 +13,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public class NextCommand implements CommandExecutor, TabCompleter {
-	
-	private final Main main;
 
-	public NextCommand(Main main) {
-		this.main = main;
-	}
+	private static final Main main = Main.getInstance();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		if(args.length == 0) {
+
+		if (args.length == 0) {
 			sender.sendMessage(main.prefix + "§7The plugin §aNextCommand §7was developed by §aItsJustMiaouss§7.");
 			return true;
 		}
-		
-		if(args.length >= 1) {
 
-			if (!Utils.hasPermissionSender(sender, "nextcommand.reload", main)) return false;
+		if (args.length >= 1) {
 
-			String s = args[0];
-			switch (s) {
+			if (!Utils.hasPermission(sender, "nextcommand.reload")) return false;
+
+			switch (args[0]) {
 				case "reload":
 					main.reloadConfig();
-					sender.sendMessage(Utils.getString("config-reloaded", main));
+					sender.sendMessage(Utils.getString("config-reloaded"));
 					break;
 				case "help":
 					sender.sendMessage(main.prefix + "§7If you need help or if you found a bug, please create an issue on GitHub (§ahttps://github.com/ItsJustMiaouss/NextCommand§7).");
