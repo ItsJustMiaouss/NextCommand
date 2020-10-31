@@ -10,18 +10,14 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 public class BroadcastCommand implements CommandExecutor {
-	
-	private final Main main;
 
-	public BroadcastCommand(Main main) {
-		this.main = main;
-	}
+	private static final Main main = Main.getInstance();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
 
-		if (!Utils.hasPermissionSender(sender, "nextcommand.broadcast", main)) return false;
+		if (!Utils.hasPermission(sender, "nextcommand.broadcast")) return false;
 
 		if (args.length == 0) {
 			sender.sendMessage(main.error_prefix + "§7/broadcast <message>");

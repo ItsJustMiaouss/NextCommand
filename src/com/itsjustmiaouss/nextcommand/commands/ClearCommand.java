@@ -10,42 +10,53 @@ import org.bukkit.entity.Player;
 
 public class ClearCommand implements CommandExecutor {
 
-    private final Main main;
-
-    public ClearCommand(Main main) { this.main = main; }
+    private final Main main = Main.getInstance();
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if(!(sender instanceof Player)) {
-            sender.sendMessage(Utils.getErrorString("console-no-player", main));
+            sender.sendMessage(Utils.getErrorString("console-no-player"));
             return true;
         }
 
-        Player p = (Player)sender;
+        Player player = (Player) sender;
 
         if (args.length == 0) {
 
-            if (!Utils.hasPermission(p, "nextcommand.clear", main)) return false;
+            if (!Utils.hasPermission(player, "nextcommand.clear")) return false;
 
-            p.getInventory().clear();
-            p.sendMessage(Utils.getString("clearcommand.cleared", main));
+            player.getInventory().clear();
+
+            if (main.getConfig().getBoolean("clearcommand.clear-exp")) {
+                player.setExp(0F);
+                player.setLevel(0);
+            }
+
+            player.sendMessage(Utils.getString("clearcommand.cleared"));
 
         } else if (args.length >= 1) {
 
-            if (!Utils.hasPermission(p, "nextcommand.clear.other", main)) return false;
+            if (!Utils.hasPermission(player, "nextcommand.clear.other")) return false;
 
-            if (!Utils.isOfflinePlayer(args[0], p, main)) return false;
+            if (!Utils.isOfflinePlayer(args[0], player)) return false;
 
-            Player t = Bukkit.getPlayer(args[0]);
+            Player target = Bukkit.getPlayer(args[0]);
 
-            t.getInventory().clear();
-            p.sendMessage(Utils.getString("clearcommand.cleared-sender", main).replace("{PLAYER}", t.getName()));
-            t.sendMessage(Utils.getString("clearcommand.cleared-other", main).replace("{PLAYER}", t.getName()));
+            target.getInventory().clear();
+
+            if (main.getConfig().getBoolean("clearcommand.clear-exp")) {
+                target.setExp(0F);
+                target.setLevel(0);
+            }
+
+            player.sendMessage(Utils.getString("clearcommand.cleared-sender").replace("{PLAYER}", target.getName()));
+            target.sendMessage(Utils.getString("clearcommand.cleared-other").replace("{PLAYER}", target.getName()));
 
         }
 
 
         return false;
     }
+
 }

@@ -1,6 +1,5 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
-import com.itsjustmiaouss.nextcommand.Main;
 import com.itsjustmiaouss.nextcommand.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -9,54 +8,49 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class FeedCommand implements CommandExecutor {
-	
-	private final Main main;
-
-	public FeedCommand(Main main) {
-		this.main = main;
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(Utils.getErrorString("console-no-player", main));
+
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Utils.getErrorString("console-no-player"));
 			return true;
 		}
-		
-		Player p =(Player)sender;
+
+		Player player = (Player) sender;
+
 		int maxFoodLevel = 20;
 		float saturation = 0.6F;
-		
-		if(args.length == 0) {
 
-			if (!Utils.hasPermission(p, "nextcommand.feed", main)) return false;
+		if (args.length == 0) {
 
-			if (p.getFoodLevel() < maxFoodLevel) {
-				p.setFoodLevel(maxFoodLevel);
-				p.setSaturation(saturation);
-				p.sendMessage(Utils.getString("feedcommand.fed", main));
+			if (!Utils.hasPermission(player, "nextcommand.feed")) return false;
+
+			if (player.getFoodLevel() < maxFoodLevel) {
+				player.setFoodLevel(maxFoodLevel);
+				player.setSaturation(saturation);
+				player.sendMessage(Utils.getString("feedcommand.fed"));
 			} else {
-				p.sendMessage(Utils.getErrorString("feedcommand.no-fed", main));
+				player.sendMessage(Utils.getErrorString("feedcommand.no-fed"));
 			}
 
 		}
 		
 		if(args.length >= 1) {
 
-			if (!Utils.hasPermission(p, "nextcommand.feed.other", main)) return false;
+			if (!Utils.hasPermission(player, "nextcommand.feed.other")) return false;
 
-			if (!Utils.isOfflinePlayer(args[0], p, main)) return false;
+			if (!Utils.isOfflinePlayer(args[0], player)) return false;
 
-			Player t = Bukkit.getPlayer(args[0]);
+			Player target = Bukkit.getPlayer(args[0]);
 
-			if (t.getFoodLevel() < maxFoodLevel) {
-				t.setFoodLevel(maxFoodLevel);
-				t.setSaturation(saturation);
-				t.sendMessage(Utils.getString("feedcommand.fed", main).replaceAll("&", "§").replace("{PLAYER}", p.getPlayer().getName()));
-				p.sendMessage(Utils.getString("eedcommand.fed-target", main).replaceAll("&", "§").replace("{PLAYER}", t.getPlayer().getName()));
+			if (target.getFoodLevel() < maxFoodLevel) {
+				target.setFoodLevel(maxFoodLevel);
+				target.setSaturation(saturation);
+				target.sendMessage(Utils.getString("feedcommand.fed").replaceAll("&", "§").replace("{PLAYER}", player.getPlayer().getName()));
+				player.sendMessage(Utils.getString("eedcommand.fed-target").replaceAll("&", "§").replace("{PLAYER}", target.getPlayer().getName()));
 			} else {
-				p.sendMessage(Utils.getErrorString("feedcommand.no-fed-target", main).replaceAll("&", "§").replace("{PLAYER}", t.getPlayer().getName()));
+				player.sendMessage(Utils.getErrorString("feedcommand.no-fed-target").replaceAll("&", "§").replace("{PLAYER}", target.getPlayer().getName()));
 			}
 
 		}

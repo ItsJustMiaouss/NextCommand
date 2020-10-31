@@ -9,53 +9,49 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class GodCommand implements CommandExecutor {
-	
-	private final Main main;
 
-	public GodCommand(Main main) {
-		this.main = main;
-	}
+	private static final Main main = Main.getInstance();
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		
-		if(!(sender instanceof Player)) {
-			sender.sendMessage(Utils.getErrorString("console-no-player", main));
+
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Utils.getErrorString("console-no-player"));
 			return true;
 		}
-		
-		
-		Player p =(Player)sender;
-		
-		if(args.length == 0) {
 
-			if (!Utils.hasPermission(p, "nextcommand.god", main)) return false;
 
-			if (main.godPlayer.contains(p)) {
-				main.godPlayer.remove(p);
-				p.sendMessage(Utils.getString("godcommand.god-deactivated", main));
+		Player player = (Player) sender;
+
+		if (args.length == 0) {
+
+			if (!Utils.hasPermission(player, "nextcommand.god")) return false;
+
+			if (main.godPlayer.contains(player)) {
+				main.godPlayer.remove(player);
+				player.sendMessage(Utils.getString("godcommand.god-deactivated"));
 			} else {
-				main.godPlayer.add(p);
-				p.sendMessage(Utils.getString("godcommand.god-activated", main));
+				main.godPlayer.add(player);
+				player.sendMessage(Utils.getString("godcommand.god-activated"));
 			}
 
 		}
 		
 		if(args.length >= 1) {
 
-			if (!Utils.hasPermission(p, "nextcommand.god.other", main)) return false;
+			if (!Utils.hasPermission(player, "nextcommand.god.other")) return false;
 
-			if (!Utils.isOfflinePlayer(args[0], p, main)) return false;
+			if (!Utils.isOfflinePlayer(args[0], player)) return false;
 
-			Player t = Bukkit.getPlayer(args[0]);
-			if (main.godPlayer.contains(t)) {
-				main.godPlayer.remove(t);
-				t.sendMessage(Utils.getString("godcommand.god-deactivated", main));
-				p.sendMessage(Utils.getString("godcommand.god-deactivated-sender", main).replace("{PLAYER}", t.getPlayer().getName()));
+			Player target = Bukkit.getPlayer(args[0]);
+			if (main.godPlayer.contains(target)) {
+				main.godPlayer.remove(target);
+				target.sendMessage(Utils.getString("godcommand.god-deactivated"));
+				player.sendMessage(Utils.getString("godcommand.god-deactivated-sender").replace("{PLAYER}", target.getPlayer().getName()));
 			} else {
-				main.godPlayer.add(t);
-				t.sendMessage(Utils.getString("godcommand.god-activated", main).replaceAll("&", "§"));
-				p.sendMessage(Utils.getString("godcommand.god-activated-sender", main).replaceAll("&", "§").replace("{PLAYER}", t.getPlayer().getName()));
+				main.godPlayer.add(target);
+				target.sendMessage(Utils.getString("godcommand.god-activated").replaceAll("&", "§"));
+				player.sendMessage(Utils.getString("godcommand.god-activated-sender").replaceAll("&", "§").replace("{PLAYER}", target.getPlayer().getName()));
 			}
 			return true;
 

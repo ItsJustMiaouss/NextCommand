@@ -10,7 +10,7 @@ NextCommand needs the following prerequisites to run properly:
 
 ## Installation
 
-1. Download the latest version of the .jar in the [releases](https://github.com/ItsJustMiaouss/NextCommand/releases) section.
+1. Download the latest version of the .jar in the [releases](https://github.com/ItsJustMiaouss/NextCommand/releases/latest) section.
 2. Put the downloaded file in the */plugins* directory of your server.
 3. Restart your server and perform the following command to verify that the plugin has initialized correctly.
 
