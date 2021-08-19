@@ -25,7 +25,8 @@ public class PermissionsManager {
         if(sender.hasPermission(permission.getNode()) || sender.hasPermission(Permissions.NEXTCOMMAND_ALL.getNode())) {
             return true;
         } else {
-            sender.sendMessage(config.getString(Prefixes.ERROR, "no-permission"));
+            sender.sendMessage(config.getString(Prefixes.ERROR, "no-permission")
+                    .replace("{permission}", permission.getNode()));
             return false;
         }
     }

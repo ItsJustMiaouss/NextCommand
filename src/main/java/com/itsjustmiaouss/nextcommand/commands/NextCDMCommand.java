@@ -33,7 +33,7 @@ public class NextCDMCommand implements CommandExecutor {
                         "§aNextCommand §7was created by §aItsJustMiaouss§7. Version §a" + pluginVersion + "§7.");
             }
         }
-        else if(args.length >= 1 && args[0].equalsIgnoreCase("reload")) {
+        else if(args[0].equalsIgnoreCase("reload")) {
             if(permissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_RELOAD)) {
                 sender.sendMessage(configManager.getString(Prefixes.NORMAL, "config-reload"));
                 nextCommand.reloadConfigFile();
