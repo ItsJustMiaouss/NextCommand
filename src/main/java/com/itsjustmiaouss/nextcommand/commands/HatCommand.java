@@ -1,10 +1,10 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.NextCommand;
 import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
 import com.itsjustmiaouss.nextcommand.utils.config.Prefixes;
 import com.itsjustmiaouss.nextcommand.utils.permissions.Permissions;
 import com.itsjustmiaouss.nextcommand.utils.permissions.PermissionsManager;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -15,22 +15,32 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class HatCommand implements CommandExecutor {
 
+    private NextCommand nextCommand;
+    private ConfigManager configManager;
+    private PermissionsManager permissionsManager;
+
+    public HatCommand(NextCommand nextCommand) {
+        this.nextCommand = nextCommand;
+        this.configManager = nextCommand.getConfigManager();
+        this.permissionsManager = nextCommand.getPermissionsManager();
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
         if(args.length == 0) {
 
             if(!(sender instanceof Player player)) {
-                sender.sendMessage(ConfigManager.getString(Prefixes.ERROR, "not-player"));
+                sender.sendMessage(configManager.getString(Prefixes.ERROR, "not-player"));
                 return false;
             }
 
-            if(PermissionsManager.hasPermission(player, Permissions.NEXTCOMMAND_HAT)) {
+            if(permissionsManager.hasPermission(player, Permissions.NEXTCOMMAND_HAT)) {
                 hat(player);
             }
         }
         else {
-            sender.sendMessage(ConfigManager.getString(Prefixes.ERROR, "command-not-found"));
+            sender.sendMessage(configManager.getString(Prefixes.ERROR, "command-not-found"));
         }
 
         return false;
@@ -42,7 +52,7 @@ public class HatCommand implements CommandExecutor {
         ItemStack head = playerInventory.getHelmet();
 
         if(hand.getType() == Material.AIR) {
-            player.sendMessage(ConfigManager.getString(Prefixes.ERROR, "hat-command.cannot-set"));
+            player.sendMessage(configManager.getString(Prefixes.ERROR, "hat-command.cannot-set"));
             return;
         }
 
@@ -51,7 +61,7 @@ public class HatCommand implements CommandExecutor {
 
         playerInventory.setHelmet(hand);
         playerInventory.setItemInMainHand(null);
-        player.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "hat-command.set"));
+        player.sendMessage(configManager.getString(Prefixes.NORMAL, "hat-command.set"));
     }
 
 }

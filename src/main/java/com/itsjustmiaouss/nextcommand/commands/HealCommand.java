@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.NextCommand;
 import com.itsjustmiaouss.nextcommand.utils.PlayerManager;
 import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
 import com.itsjustmiaouss.nextcommand.utils.config.Prefixes;
@@ -13,6 +14,18 @@ import org.bukkit.entity.Player;
 
 public class HealCommand implements CommandExecutor {
 
+    private NextCommand nextCommand;
+    private ConfigManager configManager;
+    private PermissionsManager permissionsManager;
+    private PlayerManager playerManager;
+
+    public HealCommand(NextCommand nextCommand) {
+        this.nextCommand = nextCommand;
+        this.configManager = nextCommand.getConfigManager();
+        this.permissionsManager = nextCommand.getPermissionsManager();
+        this.playerManager = nextCommand.getPlayerManager();
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
@@ -21,13 +34,13 @@ public class HealCommand implements CommandExecutor {
         if(args.length == 0) {
 
             if(!(sender instanceof Player player)) {
-                sender.sendMessage(ConfigManager.getString(Prefixes.ERROR, "not-player"));
+                sender.sendMessage(configManager.getString(Prefixes.ERROR, "not-player"));
                 return false;
             }
 
-            if(PermissionsManager.hasPermission(player, Permissions.NEXTCOMMAND_HEAL)) {
+            if(permissionsManager.hasPermission(player, Permissions.NEXTCOMMAND_HEAL)) {
                 player.setHealth(maxHealth);
-                player.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "heal-command.healed"));
+                player.sendMessage(configManager.getString(Prefixes.NORMAL, "heal-command.healed"));
             }
         }
 
@@ -35,12 +48,12 @@ public class HealCommand implements CommandExecutor {
 
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(PermissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_HEAL_OTHER)) {
-                if(PlayerManager.isOnline(target, sender)) {
+            if(permissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_HEAL_OTHER)) {
+                if(playerManager.isOnline(target, sender)) {
                     target.setHealth(maxHealth);
-                    sender.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "heal-command.healed-target")
+                    sender.sendMessage(configManager.getString(Prefixes.NORMAL, "heal-command.healed-target")
                             .replace("{player}", target.getName()));
-                    target.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "heal-command.healed"));
+                    target.sendMessage(configManager.getString(Prefixes.NORMAL, "heal-command.healed"));
                 }
             }
 

@@ -5,14 +5,20 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 public class ConfigManager {
 
-    private static FileConfiguration config = NextCommand.getInstance().getConfig();
+    private final NextCommand nextCommand;
+    private final FileConfiguration config;
+
+    public ConfigManager(NextCommand nextCommand) {
+        this.nextCommand = nextCommand;
+        this.config = nextCommand.getConfig();
+    }
 
     /**
      * Get prefix from Prefix enum class with white space
      * @param prefix Prefix enum
      * @return String
      */
-    public static String getPrefix(Prefixes prefix) {
+   public String getPrefix(Prefixes prefix) {
         if(prefix == Prefixes.NONE) return "";
         return config.getString(prefix.getPath()).replaceAll("&", "§") + "§r ";
     }
@@ -23,7 +29,7 @@ public class ConfigManager {
      * @param path Config file path
      * @return String
      */
-    public static String getString(Prefixes prefix, String path) {
+    public String getString(Prefixes prefix, String path) {
         return getPrefix(prefix) + config.getString(path).replaceAll("&", "§");
     }
 
@@ -32,7 +38,7 @@ public class ConfigManager {
      * @param path Path from config file
      * @return boolean
      */
-    public static boolean getBoolean(String path) {
+    public boolean getBoolean(String path) {
         return config.getBoolean(path);
     }
 

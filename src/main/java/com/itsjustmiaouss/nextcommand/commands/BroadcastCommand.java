@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.NextCommand;
 import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
 import com.itsjustmiaouss.nextcommand.utils.config.Prefixes;
 import com.itsjustmiaouss.nextcommand.utils.permissions.Permissions;
@@ -12,12 +13,22 @@ import org.bukkit.command.CommandSender;
 
 public class BroadcastCommand implements CommandExecutor {
 
+    private NextCommand nextCommand;
+    private ConfigManager configManager;
+    private PermissionsManager permissionsManager;
+
+    public BroadcastCommand(NextCommand nextCommand) {
+        this.nextCommand = nextCommand;
+        this.configManager = nextCommand.getConfigManager();
+        this.permissionsManager = nextCommand.getPermissionsManager();
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
     {
-        if(PermissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_BROADCAST)) {
+        if(permissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_BROADCAST)) {
             if(args.length == 0) {
-                sender.sendMessage(ConfigManager.getString(Prefixes.ERROR, "command-not-found"));
+                sender.sendMessage(configManager.getString(Prefixes.ERROR, "command-not-found"));
                 return false;
             }
 
@@ -27,7 +38,7 @@ public class BroadcastCommand implements CommandExecutor {
             }
 
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
-                    ConfigManager.getString(Prefixes.NONE, "broadcast-command.format")
+                    configManager.getString(Prefixes.NONE, "broadcast-command.format")
                             .replace("{message}", stringBuilder.toString())));
         }
 

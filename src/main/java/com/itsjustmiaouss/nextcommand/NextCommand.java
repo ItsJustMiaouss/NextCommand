@@ -3,17 +3,25 @@ package com.itsjustmiaouss.nextcommand;
 import com.itsjustmiaouss.nextcommand.commands.*;
 import com.itsjustmiaouss.nextcommand.events.ChatEvent;
 import com.itsjustmiaouss.nextcommand.events.EntityEvent;
+import com.itsjustmiaouss.nextcommand.utils.PlayerManager;
+import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
+import com.itsjustmiaouss.nextcommand.utils.permissions.PermissionsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class NextCommand extends JavaPlugin {
 
-    private static NextCommand instance;
+    private ConfigManager configManager;
+    private PermissionsManager permissionsManager;
+    private PlayerManager playerManager;
 
     @Override
     public void onEnable() {
-        instance = this;
+
+        configManager = new ConfigManager(this);
+        permissionsManager = new PermissionsManager(this);
+        playerManager = new PlayerManager(this);
 
         saveDefaultConfig();
         initEvents();
@@ -25,8 +33,8 @@ public class NextCommand extends JavaPlugin {
      */
     private void initEvents() {
         PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(new ChatEvent(), this);
-        pluginManager.registerEvents(new EntityEvent(), this);
+        pluginManager.registerEvents(new ChatEvent(this), this);
+        pluginManager.registerEvents(new EntityEvent(this), this);
     }
 
     /**
@@ -34,19 +42,29 @@ public class NextCommand extends JavaPlugin {
      * Do not forget to add them into plugin.yml
      */
     private void initCommands() {
-        getCommand("nextcommand").setExecutor(new NextCDMCommand());
-        getCommand("broadcast").setExecutor(new BroadcastCommand());
-        getCommand("feed").setExecutor(new FeedCommand());
-        getCommand("heal").setExecutor(new HealCommand());
-        getCommand("fly").setExecutor(new FlyCommand());
-        getCommand("hat").setExecutor(new HatCommand());
+        getCommand("nextcommand").setExecutor(new NextCDMCommand(this));
+        getCommand("broadcast").setExecutor(new BroadcastCommand(this));
+        getCommand("feed").setExecutor(new FeedCommand(this));
+        getCommand("heal").setExecutor(new HealCommand(this));
+        getCommand("fly").setExecutor(new FlyCommand(this));
+        getCommand("hat").setExecutor(new HatCommand(this));
     }
 
-    /**
-     * Get instance of the main class
-     * @return Instance of the main class
-     */
-    public static NextCommand getInstance() {
-        return instance;
+    public void reloadConfigFile() {
+        Bukkit.getPluginManager().disablePlugin(this);
+        reloadConfig();
+        Bukkit.getPluginManager().enablePlugin(this);
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    public PermissionsManager getPermissionsManager() {
+        return permissionsManager;
+    }
+
+    public PlayerManager getPlayerManager() {
+        return playerManager;
     }
 }

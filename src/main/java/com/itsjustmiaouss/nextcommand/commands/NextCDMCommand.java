@@ -11,28 +11,36 @@ import org.bukkit.command.CommandSender;
 
 public class NextCDMCommand implements CommandExecutor {
 
-    private NextCommand nextCommand = NextCommand.getInstance();
+    private NextCommand nextCommand;
+    private ConfigManager configManager;
+    private PermissionsManager permissionsManager;
+
+    public NextCDMCommand(NextCommand nextCommand) {
+        this.nextCommand = nextCommand;
+        this.configManager = nextCommand.getConfigManager();
+        this.permissionsManager = nextCommand.getPermissionsManager();
+    }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
         if(args.length == 0) {
-            if(PermissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_BASE)) {
+            if(permissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_BASE)) {
 
                 String pluginVersion = nextCommand.getDescription().getVersion();
 
-                sender.sendMessage(ConfigManager.getPrefix(Prefixes.NORMAL) +
+                sender.sendMessage(configManager.getPrefix(Prefixes.NORMAL) +
                         "§aNextCommand §7was created by §aItsJustMiaouss§7. Version §a" + pluginVersion + "§7.");
             }
         }
         else if(args.length >= 1 && args[0].equalsIgnoreCase("reload")) {
-            if(PermissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_RELOAD)) {
-                sender.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "config-reloaded"));
-                nextCommand.reloadConfig();
+            if(permissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_RELOAD)) {
+                sender.sendMessage(configManager.getString(Prefixes.NORMAL, "config-reload"));
+                nextCommand.reloadConfigFile();
             }
         }
         else {
-            sender.sendMessage(ConfigManager.getString(Prefixes.ERROR, "command-not-found"));
+            sender.sendMessage(configManager.getString(Prefixes.ERROR, "command-not-found"));
         }
 
         return false;

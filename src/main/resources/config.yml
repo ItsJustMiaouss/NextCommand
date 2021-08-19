@@ -7,7 +7,7 @@ not-player: "&7You must be a player to execute this command!"
 no-permission: "&7You don't have the permission to use this command!"
 player-not-found: "&7The player has not been found!"
 command-not-found: "&7This command or argument doesn't exist!"
-config-reloaded: "&7Configuration file has been &asuccessfully &7reloaded!"
+config-reload: "&7Reloading config file..."
 
 chat-event:
   allow-custom-chat-colors: true

@@ -1,5 +1,6 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
+import com.itsjustmiaouss.nextcommand.NextCommand;
 import com.itsjustmiaouss.nextcommand.utils.PlayerManager;
 import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
 import com.itsjustmiaouss.nextcommand.utils.config.Prefixes;
@@ -13,17 +14,30 @@ import org.bukkit.entity.Player;
 
 public class FlyCommand implements CommandExecutor {
 
+    private NextCommand nextCommand;
+    private ConfigManager configManager;
+    private PermissionsManager permissionsManager;
+    private PlayerManager playerManager;
+
+    public FlyCommand(NextCommand nextCommand) {
+        this.nextCommand = nextCommand;
+        this.configManager = nextCommand.getConfigManager();
+        this.permissionsManager = nextCommand.getPermissionsManager();
+        this.playerManager = nextCommand.getPlayerManager();
+    }
+
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
         if(args.length == 0) {
 
             if(!(sender instanceof Player player)) {
-                sender.sendMessage(ConfigManager.getString(Prefixes.ERROR, "not-player"));
+                sender.sendMessage(configManager.getString(Prefixes.ERROR, "not-player"));
                 return false;
             }
 
-            if(PermissionsManager.hasPermission(player, Permissions.NEXTCOMMAND_FLY)) {
+            if(permissionsManager.hasPermission(player, Permissions.NEXTCOMMAND_FLY)) {
                 toggleFly(player);
             }
 
@@ -31,8 +45,8 @@ public class FlyCommand implements CommandExecutor {
         else {
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(PermissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_FLY_OTHER)) {
-                if(PlayerManager.isOnline(target, sender)) {
+            if(permissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_FLY_OTHER)) {
+                if(playerManager.isOnline(target, sender)) {
                     toggleFlyTarget(target, sender);
                 }
             }
@@ -45,11 +59,11 @@ public class FlyCommand implements CommandExecutor {
         if(player.getAllowFlight()) {
             player.setAllowFlight(false);
             player.setFlying(false);
-            player.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "fly-command.fly-disabled"));
+            player.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-disabled"));
         } else {
             player.setAllowFlight(true);
             player.setFlying(true);
-            player.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "fly-command.fly-enabled"));
+            player.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-enabled"));
         }
     }
 
@@ -57,14 +71,14 @@ public class FlyCommand implements CommandExecutor {
         if(target.getAllowFlight()) {
             target.setAllowFlight(false);
             target.setFlying(false);
-            target.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "fly-command.fly-disabled"));
-            sender.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "fly-command.fly-disabled-target")
+            target.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-disabled"));
+            sender.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-disabled-target")
                     .replace("{player}", target.getName()));
         } else {
             target.setAllowFlight(true);
             target.setFlying(true);
-            target.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "fly-command.fly-enabled"));
-            sender.sendMessage(ConfigManager.getString(Prefixes.NORMAL, "fly-command.fly-enabled-target")
+            target.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-enabled"));
+            sender.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-enabled-target")
                     .replace("{player}", target.getName()));
         }
     }
