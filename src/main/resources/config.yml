@@ -18,6 +18,12 @@ chat-event:
       - example1
       - example2
 
+join-event:
+  enable-join-messages: true
+  join-message: "&8[&a+&8] &7{player}"
+  enable-quit-messages: true
+  quit-message: "&8[&c-&8] &7{player}"
+
 entity-event:
   protection:
     tnt: true

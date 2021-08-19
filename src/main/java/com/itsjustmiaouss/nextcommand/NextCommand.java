@@ -3,6 +3,7 @@ package com.itsjustmiaouss.nextcommand;
 import com.itsjustmiaouss.nextcommand.commands.*;
 import com.itsjustmiaouss.nextcommand.events.ChatEvent;
 import com.itsjustmiaouss.nextcommand.events.EntityEvent;
+import com.itsjustmiaouss.nextcommand.events.PlayerEvent;
 import com.itsjustmiaouss.nextcommand.utils.PlayerManager;
 import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
 import com.itsjustmiaouss.nextcommand.utils.permissions.PermissionsManager;
@@ -35,6 +36,7 @@ public class NextCommand extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new ChatEvent(this), this);
         pluginManager.registerEvents(new EntityEvent(this), this);
+        pluginManager.registerEvents(new PlayerEvent(this), this);
     }
 
     /**
