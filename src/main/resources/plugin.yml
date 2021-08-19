@@ -1,5 +1,6 @@
 name: ${project.artifactId}
 version: ${project.version}
+api-version: 1.16
 author: ItsJustMiaouss
 website: https://github.com/ItsJustMiaouss/NextCommand
 main: com.itsjustmiaouss.nextcommand.NextCommand
@@ -19,3 +20,5 @@ commands:
     description: Toggles fly for player
   hat:
     description: Place a block or an item on player's head
+  invsee:
+    description: See player's inventory

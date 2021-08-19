@@ -50,6 +50,7 @@ public class NextCommand extends JavaPlugin {
         getCommand("heal").setExecutor(new HealCommand(this));
         getCommand("fly").setExecutor(new FlyCommand(this));
         getCommand("hat").setExecutor(new HatCommand(this));
+        getCommand("invsee").setExecutor(new InvseeCommand(this));
     }
 
     public void reloadConfigFile() {
