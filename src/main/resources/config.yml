@@ -12,6 +12,13 @@ config-reloaded: "&7Configuration file has been &asuccessfully &7reloaded!"
 chat-event:
   allow-custom-chat-colors: true
 
+entity-event:
+  protection:
+    tnt: true
+    creeper: true
+    tnt-minecart: true
+    wither: true
+
 broadcast-command:
   # Use {message} to replace the broadcast message
   format: "&8[&aBroadcast&8] &7{message}"

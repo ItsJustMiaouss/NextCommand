@@ -1,7 +1,8 @@
 package com.itsjustmiaouss.nextcommand;
 
 import com.itsjustmiaouss.nextcommand.commands.*;
-import com.itsjustmiaouss.nextcommand.listeners.ChatListener;
+import com.itsjustmiaouss.nextcommand.events.ChatEvent;
+import com.itsjustmiaouss.nextcommand.events.EntityEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,16 +16,17 @@ public class NextCommand extends JavaPlugin {
         instance = this;
 
         saveDefaultConfig();
-        initListeners();
+        initEvents();
         initCommands();
     }
 
     /**
      * Initialize plugins events
      */
-    private void initListeners() {
+    private void initEvents() {
         PluginManager pluginManager = Bukkit.getPluginManager();
-        pluginManager.registerEvents(new ChatListener(), this);
+        pluginManager.registerEvents(new ChatEvent(), this);
+        pluginManager.registerEvents(new EntityEvent(), this);
     }
 
     /**
