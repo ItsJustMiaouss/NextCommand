@@ -11,12 +11,6 @@ config-reload: "&7Reloading config file..."
 
 chat-event:
   allow-custom-chat-colors: true
-  command-protection:
-    enable: true
-    protection-message: "&7This command is protected. You don't have permission to use it!"
-    protection-list:
-      - example1
-      - example2
 
 join-event:
   enable-join-messages: true
@@ -31,8 +25,14 @@ entity-event:
     tnt-minecart: true
     wither: true
 
+command-event:
+  enable-command-protection: true
+  protection-message: "&7This command is protected. You don't have permission to use it!"
+  protection-list:
+    - example1
+    - example2
+
 broadcast-command:
-  # Use {message} to replace the broadcast message
   format: "&8[&aBroadcast&8] &7{message}"
 
 feed-command:

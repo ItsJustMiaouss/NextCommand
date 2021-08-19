@@ -42,15 +42,15 @@ public class ChatEvent implements Listener {
     @EventHandler
     public void onPlayerExecuteCommand(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
-        List<String> disabledCommands = nextCommand.getConfig().getStringList("chat-event.command-protection.protection-list");
+        List<String> disabledCommands = nextCommand.getConfig().getStringList("command-event.protection-list");
 
-        if(!configManager.getBoolean("chat-event.command-protection.enable")) return;
+        if(!configManager.getBoolean("command-event.enable-command-protection")) return;
         if(permissionsManager.hasPermissionRaw(player, Permissions.NEXTCOMMAND_BYPASS_COMMAND_PROTECTION)) return;
 
         for(String command : disabledCommands) {
             if(event.getMessage().equalsIgnoreCase("/" + command)) {
                 event.setCancelled(true);
-                player.sendMessage(configManager.getString(Prefixes.ERROR, "chat-event.command-protection.protection-message"));
+                player.sendMessage(configManager.getString(Prefixes.ERROR, "command-event.protection-message"));
             }
         }
     }
