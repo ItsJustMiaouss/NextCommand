@@ -1,18 +1,19 @@
 # NextCommand
 
-This plugin adds essential commands to Minecraft servers.
+NextCommand adds many essential commands to your Minecraft server.
+Config file is fully editable!
 
 ## Getting Started
 
 NextCommand needs the following prerequisites to run properly:
-* **[Spigot](https://getbukkit.org/download/spigot) or [Paper](https://papermc.io/) in version 1.15.X or 1.16.X of Minecraft**
-* **Java 8 or higher**
+* **[Spigot](https://getbukkit.org/download/spigot) or [Paper](https://papermc.io/) version >= 1.16.X**
+* **Java 8, Java 16 or higher (Java 16 is recommended)**
 
 ## Installation
 
-1. Download the latest version of the .jar in the [releases](https://github.com/ItsJustMiaouss/NextCommand/releases/latest) section.
-2. Put the downloaded file in the */plugins* directory of your server.
-3. Restart your server and perform the following command to verify that the plugin has initialized correctly.
+1. Download the latest version of NextCommand from the [releases](https://github.com/ItsJustMiaouss/NextCommand/releases/latest) page.
+2. Put the downloaded file in your */plugins/* directory on your server.
+3. Restart your server and perform the following commands to verify that the plugin has initialized correctly.
 
 ```
 /plugins and /nextcommand
@@ -20,16 +21,12 @@ NextCommand needs the following prerequisites to run properly:
 
 ## Usage
 
-A configuration file is automatically generated the first time you restart your server. It is located in the */plugins/nextcommand/config.yml* directory. In this file, you can edit all messages and configuration.
+A configuration file is automatically generated the first time you restart your server. It is located in this directory: */plugins/nextcommand/config.yml*. In this file, you can modify messages and configuration.
 
-## Credits
+## Reporting an issue
 
-[bStats](https://bstats.org/)
-
-## Reporting a Vulnerability
-
-If you detect a vulnerability, start by posting a message in the [issues](https://github.com/ItsJustMiaouss/NextCommand/issues) section.
+If you find an issue, please [on one here](https://github.com/ItsJustMiaouss/NextCommand/issues).
 
 ## License
 
-[GNU General Public License v3.0](https://github.com/ItsJustMiaouss/NextCommand/blob/master/LICENSE)
+[MIT](https://github.com/ItsJustMiaouss/NextCommand/blob/master/LICENSE)

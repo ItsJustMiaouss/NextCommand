@@ -1,0 +1,35 @@
+# Welcome to NextCommand config file!
+# Here, you can use Minecraft colors type: e.g. &6
+
+prefix: "&8[&aNextCommand&8]"
+error-prefix: "&8[&cNextCommand&8]"
+not-player: "&7You must be a player to execute this command!"
+no-permission: "&7You don't have the permission to use this command!"
+player-not-found: "&7The player has not been found!"
+command-not-found: "&7This command or argument doesn't exist!"
+config-reloaded: "&7Configuration file has been &asuccessfully &7reloaded!"
+
+chat-event:
+  allow-custom-chat-colors: true
+
+broadcast-command:
+  # Use {message} to replace the broadcast message
+  format: "&8[&aBroadcast&8] &7{message}"
+
+feed-command:
+  fed: "&7You've been fed!"
+  fed-target: "&7You've fed &a{player}&7!"
+
+heal-command:
+  healed: "&7You've been healed!"
+  healed-target: "&7You healed &a{player}&7!"
+
+fly-command:
+  fly-enabled: "&7Your fly has been &aenabled&7!"
+  fly-disabled: "&7Your fly has been &cdisabled&7!"
+  fly-enabled-target: "&7You &aenabled &7fly for &a{player}&7!"
+  fly-disabled-target: "&7You &cdisabled &7fly for &a{player}&7!"
+
+hat-command:
+  set: "&7Your new hat has been defined!"
+  cannot-set: "&7Please get a block in your hand and try again!"

@@ -1,0 +1,21 @@
+name: ${project.artifactId}
+version: ${project.version}
+author: ItsJustMiaouss
+website: https://github.com/ItsJustMiaouss/NextCommand
+main: com.itsjustmiaouss.nextcommand.NextCommand
+commands:
+  nextcommand:
+    description: Main plugin command
+    aliases:
+      - nc
+      - nextc
+  broadcast:
+    description: Sends a message to connected players
+  feed:
+    description: Sets max food level and max saturation to player
+  heal:
+    description: Sets max heal to player
+  fly:
+    description: Toggles fly for player
+  hat:
+    description: Place a block or an item on player's head
