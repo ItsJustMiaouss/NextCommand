@@ -1,4 +1,4 @@
-package com.itsjustmiaouss.nextcommand.listeners;
+package com.itsjustmiaouss.nextcommand.events;
 
 import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
 import com.itsjustmiaouss.nextcommand.utils.permissions.Permissions;
@@ -8,7 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-public class ChatListener implements Listener {
+public class ChatEvent implements Listener {
 
     @EventHandler
     public void onPlayerChat(AsyncPlayerChatEvent event) {
