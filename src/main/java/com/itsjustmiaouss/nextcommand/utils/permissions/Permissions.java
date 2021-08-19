@@ -14,6 +14,9 @@ public enum Permissions {
     NEXTCOMMAND_HAT("nextcommand.hat"),
     NEXTCOMMAND_CHATCOLOR("nextcommand.chatcolor"),
     NEXTCOMMAND_INVSEE("nextcommand.invesee"),
+    NEXTCOMMAND_SETSPAWN("nextcommand.setspawn"),
+    NEXTCOMMAND_SPAWN("nextcommand.spawn"),
+    NEXTCOMMAND_SPAWN_OTHER("nextcommand.spawn.other"),
     NEXTCOMMAND_BYPASS_COMMAND_PROTECTION("nextcommand.bypasscommandprotection");
 
     private String node;

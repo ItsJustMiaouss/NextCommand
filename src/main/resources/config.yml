@@ -7,6 +7,7 @@ not-player: "&7You must be a player to execute this command!"
 no-permission: "&7You don't have the permission to use this command! (You need permission {permission})"
 player-not-found: "&7The player has not been found!"
 command-not-found: "&7This command or argument doesn't exist!"
+exception: "&7A mistake has been made! Please check the configuration file ({error})."
 config-reload: "&7Reloading config file..."
 
 chat-event:
@@ -52,3 +53,15 @@ fly-command:
 hat-command:
   set: "&7Your new hat has been defined!"
   cannot-set: "&7Please get a block in your hand and try again!"
+
+spawn-command:
+  teleportation: "&7Teleportation..."
+  no-spawn-set: "&7Spawn point has not been defined!"
+  spawn-set: "&7The spawn point has been set!"
+  location:
+    world:
+    x:
+    y:
+    z:
+    yaw:
+    pitch:

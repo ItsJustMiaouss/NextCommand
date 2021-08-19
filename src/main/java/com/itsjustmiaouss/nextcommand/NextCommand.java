@@ -51,12 +51,12 @@ public class NextCommand extends JavaPlugin {
         getCommand("fly").setExecutor(new FlyCommand(this));
         getCommand("hat").setExecutor(new HatCommand(this));
         getCommand("invsee").setExecutor(new InvseeCommand(this));
+        getCommand("setspawn").setExecutor(new SetSpawnCommand(this));
+        getCommand("spawn").setExecutor(new SpawnCommand(this));
     }
 
     public void reloadConfigFile() {
-        Bukkit.getPluginManager().disablePlugin(this);
         reloadConfig();
-        Bukkit.getPluginManager().enablePlugin(this);
     }
 
     public ConfigManager getConfigManager() {

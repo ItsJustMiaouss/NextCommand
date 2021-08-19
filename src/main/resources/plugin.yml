@@ -22,3 +22,7 @@ commands:
     description: Place a block or an item on player's head
   invsee:
     description: See player's inventory
+  setspawn:
+    description: Set the spawn point
+  spawn:
+    description: Go to spawn point
