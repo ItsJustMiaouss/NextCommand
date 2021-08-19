@@ -8,8 +8,12 @@ import com.itsjustmiaouss.nextcommand.utils.permissions.PermissionsManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 
-public class NextCDMCommand implements CommandExecutor {
+import java.util.ArrayList;
+import java.util.List;
+
+public class NextCDMCommand implements CommandExecutor, TabCompleter {
 
     private NextCommand nextCommand;
     private ConfigManager configManager;
@@ -44,6 +48,13 @@ public class NextCDMCommand implements CommandExecutor {
         }
 
         return false;
+    }
+
+    List<String> arguments = new ArrayList<String>();
+
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String s, String[] args) {
+        if(arguments.isEmpty()) { arguments.add("reload"); }
+        return arguments;
     }
 
 }
