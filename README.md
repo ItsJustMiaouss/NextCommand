@@ -1,13 +1,13 @@
 # NextCommand
 
-NextCommand adds many essential commands to your Minecraft server.
+:gear: NextCommand adds many essential commands to your Minecraft server.
 Config file is fully editable!
 
 ## Getting Started
 
 NextCommand needs the following prerequisites to run properly:
 * **[Spigot](https://getbukkit.org/download/spigot) or [Paper](https://papermc.io/) version >= 1.16.X**
-* **Java 8, Java 16 or higher (Java 16 is recommended)**
+* **Java 16 or higher (see [supported versions](https://itsjustmiaouss.gitbook.io/nextcommand/supported-versions))**
 
 ## Installation
 
