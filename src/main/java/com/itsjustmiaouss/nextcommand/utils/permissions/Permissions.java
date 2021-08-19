@@ -12,7 +12,8 @@ public enum Permissions {
     NEXTCOMMAND_FLY("nextcommand.fly"),
     NEXTCOMMAND_FLY_OTHER("nextcommand.fly.other"),
     NEXTCOMMAND_HAT("nextcommand.hat"),
-    NEXTCOMMAND_CHATCOLOR("nextcommand.chatcolor");
+    NEXTCOMMAND_CHATCOLOR("nextcommand.chatcolor"),
+    NEXTCOMMAND_BYPASS_COMMAND_PROTECTION("nextcommand.bypasscommandprotection");
 
     private String node;
 

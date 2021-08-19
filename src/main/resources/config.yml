@@ -11,6 +11,12 @@ config-reload: "&7Reloading config file..."
 
 chat-event:
   allow-custom-chat-colors: true
+  command-protection:
+    enable: true
+    protection-message: "&7This command is protected. You don't have permission to use it!"
+    protection-list:
+      - example1
+      - example2
 
 entity-event:
   protection:

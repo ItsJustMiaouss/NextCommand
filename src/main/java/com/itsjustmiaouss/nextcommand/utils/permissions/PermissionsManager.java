@@ -30,4 +30,15 @@ public class PermissionsManager {
         }
     }
 
+    /**
+     * Returns whether player has permission
+     * This method do not send a no-permission message to player
+     * @param sender Command Sender should have the permission
+     * @param permission Permission from Permissions enum
+     * @return boolean
+     */
+    public boolean hasPermissionRaw(CommandSender sender, Permissions permission) {
+        return sender.hasPermission(permission.getNode()) || sender.hasPermission(Permissions.NEXTCOMMAND_ALL.getNode());
+    }
+
 }
