@@ -30,9 +30,10 @@ public class ChatEvent implements Listener {
         Player player = event.getPlayer();
         String message = event.getMessage();
 
+        if(!message.contains("&")) return;
         if(!configManager.getBoolean("chat-event.allow-custom-chat-colors")) return;
 
-        if(permissionsManager.hasPermission(player, Permissions.NEXTCOMMAND_CHATCOLOR)) {
+        if(permissionsManager.hasPermissionRaw(player, Permissions.NEXTCOMMAND_CHATCOLOR)) {
             message = message.replaceAll("&", "§");
             event.setMessage(message);
         }
