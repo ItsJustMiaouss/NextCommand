@@ -27,6 +27,10 @@ A configuration file is automatically generated the first time you restart your 
 
 If you find an issue, please [on one here](https://github.com/ItsJustMiaouss/NextCommand/issues).
 
+## Documentation
+
+See the complete [documentation on GitBook](https://itsjustmiaouss.gitbook.io/nextcommand/)!
+
 ## License
 
 [MIT](https://github.com/ItsJustMiaouss/NextCommand/blob/master/LICENSE)
