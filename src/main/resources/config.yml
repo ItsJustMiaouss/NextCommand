@@ -8,7 +8,7 @@ no-permission: "&7You don't have the permission to use this command! (You need p
 player-not-found: "&7The player has not been found!"
 command-not-found: "&7This command or argument doesn't exist!"
 exception: "&7A mistake has been made! Please check the configuration file ({error})."
-config-reload: "&7Reloading config file..."
+config-reload: "&7Config file reloaded! Restart your server to apply all changes."
 
 chat-event:
   allow-custom-chat-colors: true
@@ -56,6 +56,7 @@ hat-command:
 
 spawn-command:
   teleportation: "&7Teleportation..."
+  teleportation-target: "&7{player} has been teleported to the spawn!"
   no-spawn-set: "&7Spawn point has not been defined!"
   spawn-set: "&7The spawn point has been set!"
   location:

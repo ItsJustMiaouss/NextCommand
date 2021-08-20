@@ -55,10 +55,6 @@ public class NextCommand extends JavaPlugin {
         getCommand("spawn").setExecutor(new SpawnCommand(this));
     }
 
-    public void reloadConfigFile() {
-        reloadConfig();
-    }
-
     public ConfigManager getConfigManager() {
         return configManager;
     }

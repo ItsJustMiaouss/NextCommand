@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +40,9 @@ public class NextCDMCommand implements CommandExecutor, TabCompleter {
         }
         else if(args[0].equalsIgnoreCase("reload")) {
             if(permissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_RELOAD)) {
+
+                nextCommand.reloadConfig();
                 sender.sendMessage(configManager.getString(Prefixes.NORMAL, "config-reload"));
-                nextCommand.reloadConfigFile();
             }
         }
         else {
