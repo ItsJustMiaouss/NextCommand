@@ -7,7 +7,7 @@ Config file is fully editable!
 
 NextCommand needs the following prerequisites to run properly:
 * **[Spigot](https://getbukkit.org/download/spigot) or [Paper](https://papermc.io/) version >= 1.16.X**
-* **Java 16 or higher (see [supported versions](https://itsjustmiaouss.gitbook.io/nextcommand/supported-versions))**
+* **Java 16 or higher (see [supported versions](https://github.com/ItsJustMiaouss/NextCommand/wiki#compatibility))**
 
 ## Installation
 
@@ -29,7 +29,7 @@ If you find an issue, please [on one here](https://github.com/ItsJustMiaouss/Nex
 
 ## Documentation
 
-See the complete [documentation on GitBook](https://itsjustmiaouss.gitbook.io/nextcommand/)!
+See the complete [here](https://github.com/ItsJustMiaouss/NextCommand/wiki)!
 
 ## License
 
