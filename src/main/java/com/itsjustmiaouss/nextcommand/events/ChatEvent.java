@@ -1,10 +1,8 @@
 package com.itsjustmiaouss.nextcommand.events;
 
 import com.itsjustmiaouss.nextcommand.NextCommand;
-import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
-import com.itsjustmiaouss.nextcommand.utils.config.Prefixes;
-import com.itsjustmiaouss.nextcommand.utils.permissions.Permissions;
-import com.itsjustmiaouss.nextcommand.utils.permissions.PermissionsManager;
+import com.itsjustmiaouss.nextcommand.utils.config.Prefix;
+import com.itsjustmiaouss.nextcommand.utils.permissions.Permission;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -15,14 +13,10 @@ import java.util.List;
 
 public class ChatEvent implements Listener {
 
-    private NextCommand nextCommand;
-    private ConfigManager configManager;
-    private PermissionsManager permissionsManager;
+    private final NextCommand nextCommand;
 
     public ChatEvent(NextCommand nextCommand) {
         this.nextCommand = nextCommand;
-        this.configManager = nextCommand.getConfigManager();
-        this.permissionsManager = nextCommand.getPermissionsManager();
     }
 
     @EventHandler
@@ -31,9 +25,9 @@ public class ChatEvent implements Listener {
         String message = event.getMessage();
 
         if(!message.contains("&")) return;
-        if(!configManager.getBoolean("chat-event.allow-custom-chat-colors")) return;
+        if(!nextCommand.getConfigManager().getBoolean("chat-event.allow-custom-chat-colors")) return;
 
-        if(permissionsManager.hasPermissionRaw(player, Permissions.NEXTCOMMAND_CHATCOLOR)) {
+        if(nextCommand.getPermissionsManager().hasPermissionRaw(player, Permission.NEXTCOMMAND_CHATCOLOR)) {
             message = message.replaceAll("&", "§");
             event.setMessage(message);
         }
@@ -44,13 +38,13 @@ public class ChatEvent implements Listener {
         Player player = event.getPlayer();
         List<String> disabledCommands = nextCommand.getConfig().getStringList("command-event.protection-list");
 
-        if(!configManager.getBoolean("command-event.enable-command-protection")) return;
-        if(permissionsManager.hasPermissionRaw(player, Permissions.NEXTCOMMAND_BYPASS_COMMAND_PROTECTION)) return;
+        if(!nextCommand.getConfigManager().getBoolean("command-event.enable-command-protection")) return;
+        if(nextCommand.getPermissionsManager().hasPermissionRaw(player, Permission.NEXTCOMMAND_BYPASS_COMMAND_PROTECTION)) return;
 
         for(String command : disabledCommands) {
             if(event.getMessage().equalsIgnoreCase("/" + command)) {
                 event.setCancelled(true);
-                player.sendMessage(configManager.getString(Prefixes.ERROR, "command-event.protection-message"));
+                player.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "command-event.protection-message"));
             }
         }
     }

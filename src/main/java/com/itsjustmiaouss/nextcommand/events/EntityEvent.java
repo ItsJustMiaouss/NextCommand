@@ -10,12 +10,10 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 
 public class EntityEvent implements Listener {
 
-    private NextCommand nextCommand;
-    private ConfigManager configManager;
+    private final NextCommand nextCommand;
 
     public EntityEvent(NextCommand nextCommand) {
         this.nextCommand = nextCommand;
-        this.configManager = nextCommand.getConfigManager();
     }
 
     @EventHandler
@@ -24,28 +22,28 @@ public class EntityEvent implements Listener {
         Entity eventEntity = event.getEntity();
 
         if(eventEntity instanceof TNTPrimed) {
-            if(configManager.getBoolean("entity-event.protection.tnt")) {
+            if(nextCommand.getConfigManager().getBoolean("entity-event.protection.tnt")) {
                 event.setCancelled(true);
                 createFakeExplosion(world, eventEntity);
             }
         }
 
         if(eventEntity instanceof Creeper) {
-            if(configManager.getBoolean("entity-event.protection.creeper")) {
+            if(nextCommand.getConfigManager().getBoolean("entity-event.protection.creeper")) {
                 event.setCancelled(true);
                 createFakeExplosion(world, eventEntity);
             }
         }
 
         if(eventEntity instanceof Minecart) {
-            if(configManager.getBoolean("entity-event.protection.tnt-minecart")) {
+            if(nextCommand.getConfigManager().getBoolean("entity-event.protection.tnt-minecart")) {
                 event.setCancelled(true);
                 createFakeExplosion(world, eventEntity);
             }
         }
 
         if(eventEntity instanceof Wither || eventEntity instanceof WitherSkull) {
-            if(configManager.getBoolean("entity-event.protection.wither")) {
+            if(nextCommand.getConfigManager().getBoolean("entity-event.protection.wither")) {
                 event.setCancelled(true);
                 createFakeExplosion(world, eventEntity);
             }

@@ -1,6 +1,6 @@
 name: ${project.artifactId}
 version: ${project.version}
-api-version: 1.16
+api-version: 1.18
 author: ItsJustMiaouss
 website: https://github.com/ItsJustMiaouss/NextCommand
 main: com.itsjustmiaouss.nextcommand.NextCommand

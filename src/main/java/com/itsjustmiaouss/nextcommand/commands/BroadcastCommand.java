@@ -1,10 +1,8 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
 import com.itsjustmiaouss.nextcommand.NextCommand;
-import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
-import com.itsjustmiaouss.nextcommand.utils.config.Prefixes;
-import com.itsjustmiaouss.nextcommand.utils.permissions.Permissions;
-import com.itsjustmiaouss.nextcommand.utils.permissions.PermissionsManager;
+import com.itsjustmiaouss.nextcommand.utils.config.Prefix;
+import com.itsjustmiaouss.nextcommand.utils.permissions.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -13,22 +11,18 @@ import org.bukkit.command.CommandSender;
 
 public class BroadcastCommand implements CommandExecutor {
 
-    private NextCommand nextCommand;
-    private ConfigManager configManager;
-    private PermissionsManager permissionsManager;
+    private final NextCommand nextCommand;
 
     public BroadcastCommand(NextCommand nextCommand) {
         this.nextCommand = nextCommand;
-        this.configManager = nextCommand.getConfigManager();
-        this.permissionsManager = nextCommand.getPermissionsManager();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
     {
-        if(permissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_BROADCAST)) {
+        if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_BROADCAST)) {
             if(args.length == 0) {
-                sender.sendMessage(configManager.getString(Prefixes.ERROR, "command-not-found"));
+                sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "command-not-found"));
                 return false;
             }
 
@@ -38,7 +32,7 @@ public class BroadcastCommand implements CommandExecutor {
             }
 
             Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&',
-                    configManager.getString(Prefixes.NONE, "broadcast-command.format")
+                    nextCommand.getConfigManager().getString(Prefix.NONE, "broadcast-command.format")
                             .replace("{message}", stringBuilder.toString())));
         }
 

@@ -1,11 +1,8 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
 import com.itsjustmiaouss.nextcommand.NextCommand;
-import com.itsjustmiaouss.nextcommand.utils.PlayerManager;
-import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
-import com.itsjustmiaouss.nextcommand.utils.config.Prefixes;
-import com.itsjustmiaouss.nextcommand.utils.permissions.Permissions;
-import com.itsjustmiaouss.nextcommand.utils.permissions.PermissionsManager;
+import com.itsjustmiaouss.nextcommand.utils.config.Prefix;
+import com.itsjustmiaouss.nextcommand.utils.permissions.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,16 +11,10 @@ import org.bukkit.entity.Player;
 
 public class FlyCommand implements CommandExecutor {
 
-    private NextCommand nextCommand;
-    private ConfigManager configManager;
-    private PermissionsManager permissionsManager;
-    private PlayerManager playerManager;
+    private final NextCommand nextCommand;
 
     public FlyCommand(NextCommand nextCommand) {
         this.nextCommand = nextCommand;
-        this.configManager = nextCommand.getConfigManager();
-        this.permissionsManager = nextCommand.getPermissionsManager();
-        this.playerManager = nextCommand.getPlayerManager();
     }
 
 
@@ -33,11 +24,11 @@ public class FlyCommand implements CommandExecutor {
         if(args.length == 0) {
 
             if(!(sender instanceof Player player)) {
-                sender.sendMessage(configManager.getString(Prefixes.ERROR, "not-player"));
+                sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "not-player"));
                 return false;
             }
 
-            if(permissionsManager.hasPermission(player, Permissions.NEXTCOMMAND_FLY)) {
+            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.NEXTCOMMAND_FLY)) {
                 toggleFly(player);
             }
 
@@ -45,8 +36,8 @@ public class FlyCommand implements CommandExecutor {
         else {
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(permissionsManager.hasPermission(sender, Permissions.NEXTCOMMAND_FLY_OTHER)) {
-                if(playerManager.isOnline(target, sender)) {
+            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_FLY_OTHER)) {
+                if(nextCommand.getPlayerManager().isOnline(target, sender)) {
                     toggleFlyTarget(target, sender);
                 }
             }
@@ -59,11 +50,11 @@ public class FlyCommand implements CommandExecutor {
         if(player.getAllowFlight()) {
             player.setAllowFlight(false);
             player.setFlying(false);
-            player.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-disabled"));
+            player.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "fly-command.fly-disabled"));
         } else {
             player.setAllowFlight(true);
             player.setFlying(true);
-            player.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-enabled"));
+            player.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "fly-command.fly-enabled"));
         }
     }
 
@@ -71,14 +62,14 @@ public class FlyCommand implements CommandExecutor {
         if(target.getAllowFlight()) {
             target.setAllowFlight(false);
             target.setFlying(false);
-            target.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-disabled"));
-            sender.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-disabled-target")
+            target.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "fly-command.fly-disabled"));
+            sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "fly-command.fly-disabled-target")
                     .replace("{player}", target.getName()));
         } else {
             target.setAllowFlight(true);
             target.setFlying(true);
-            target.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-enabled"));
-            sender.sendMessage(configManager.getString(Prefixes.NORMAL, "fly-command.fly-enabled-target")
+            target.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "fly-command.fly-enabled"));
+            sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "fly-command.fly-enabled-target")
                     .replace("{player}", target.getName()));
         }
     }

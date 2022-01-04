@@ -1,16 +1,13 @@
 package com.itsjustmiaouss.nextcommand.utils.config;
 
 import com.itsjustmiaouss.nextcommand.NextCommand;
-import org.bukkit.configuration.file.FileConfiguration;
 
 public class ConfigManager {
 
     private final NextCommand nextCommand;
-    private final FileConfiguration config;
 
     public ConfigManager(NextCommand nextCommand) {
         this.nextCommand = nextCommand;
-        this.config = nextCommand.getConfig();
     }
 
     /**
@@ -18,9 +15,9 @@ public class ConfigManager {
      * @param prefix Prefix enum
      * @return String
      */
-   public String getPrefix(Prefixes prefix) {
-        if(prefix == Prefixes.NONE) return "";
-        return config.getString(prefix.getPath()).replaceAll("&", "§") + "§r ";
+   public String getPrefix(Prefix prefix) {
+        if(prefix == Prefix.NONE) return "";
+        return nextCommand.getConfig().getString(prefix.getPath()).replaceAll("&", "§") + "§r ";
     }
 
     /**
@@ -29,8 +26,8 @@ public class ConfigManager {
      * @param path Config file path
      * @return String
      */
-    public String getString(Prefixes prefix, String path) {
-        return getPrefix(prefix) + config.getString(path).replaceAll("&", "§");
+    public String getString(Prefix prefix, String path) {
+        return getPrefix(prefix) + nextCommand.getConfig().getString(path).replaceAll("&", "§");
     }
 
     /**
@@ -39,7 +36,7 @@ public class ConfigManager {
      * @return boolean
      */
     public boolean getBoolean(String path) {
-        return config.getBoolean(path);
+        return nextCommand.getConfig().getBoolean(path);
     }
 
 }

@@ -1,14 +1,15 @@
 # Welcome to NextCommand config file!
-# Here, you can use Minecraft colors type: e.g. &6
+# Here, you can use Minecraft colors: e.g. &6I'm writing in orange!
+# Check https://minecraft.tools/en/color-code.php.
 
 prefix: "&8[&aNextCommand&8]"
 error-prefix: "&8[&cNextCommand&8]"
 not-player: "&7You must be a player to execute this command!"
-no-permission: "&7You don't have the permission to use this command! (You need permission {permission})"
+no-permission: "&7You don't have the permission to use this command! (You need the permission {permission})"
 player-not-found: "&7The player has not been found!"
 command-not-found: "&7This command or argument doesn't exist!"
 exception: "&7A mistake has been made! Please check the configuration file ({error})."
-config-reload: "&7Config file reloaded! Restart your server to apply all changes."
+config-reload: "&7Configuration file reloaded!"
 
 chat-event:
   allow-custom-chat-colors: true

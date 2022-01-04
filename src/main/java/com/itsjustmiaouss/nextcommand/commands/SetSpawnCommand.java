@@ -1,10 +1,8 @@
 package com.itsjustmiaouss.nextcommand.commands;
 
 import com.itsjustmiaouss.nextcommand.NextCommand;
-import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
-import com.itsjustmiaouss.nextcommand.utils.config.Prefixes;
-import com.itsjustmiaouss.nextcommand.utils.permissions.Permissions;
-import com.itsjustmiaouss.nextcommand.utils.permissions.PermissionsManager;
+import com.itsjustmiaouss.nextcommand.utils.config.Prefix;
+import com.itsjustmiaouss.nextcommand.utils.permissions.Permission;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,29 +11,25 @@ import org.bukkit.entity.Player;
 
 public class SetSpawnCommand implements CommandExecutor {
 
-    private NextCommand nextCommand;
-    private ConfigManager config;
-    private PermissionsManager permissionsManager;
+    private final NextCommand nextCommand;
 
     public SetSpawnCommand(NextCommand nextCommand) {
         this.nextCommand = nextCommand;
-        this.config = nextCommand.getConfigManager();
-        this.permissionsManager = nextCommand.getPermissionsManager();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
         if(!(sender instanceof Player player)) {
-            sender.sendMessage(config.getString(Prefixes.ERROR, "not-player"));
+            sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "not-player"));
             return false;
         }
 
         if(args.length >= 1) {
-            sender.sendMessage(config.getString(Prefixes.ERROR, "not-player"));
+            sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "not-player"));
         }
 
-        if(permissionsManager.hasPermission(player, Permissions.NEXTCOMMAND_SETSPAWN)) {
+        if(nextCommand.getPermissionsManager().hasPermission(player, Permission.NEXTCOMMAND_SETSPAWN)) {
             Location playerLocation = player.getLocation();
 
             nextCommand.getConfig().set("spawn-command.location.world", playerLocation.getWorld().getName());
@@ -47,7 +41,7 @@ public class SetSpawnCommand implements CommandExecutor {
 
             nextCommand.saveConfig();
 
-            player.sendMessage(config.getString(Prefixes.NORMAL, "spawn-command.spawn-set"));
+            player.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "spawn-command.spawn-set"));
         }
 
 
