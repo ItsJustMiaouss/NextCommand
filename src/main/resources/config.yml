@@ -60,13 +60,7 @@ spawn-command:
   teleportation-target: "&7{player} has been teleported to the spawn!"
   no-spawn-set: "&7Spawn point has not been defined!"
   spawn-set: "&7The spawn point has been set!"
-  location:
-    world:
-    x:
-    y:
-    z:
-    yaw:
-    pitch:
+  location: {}
 
 warp-command:
   saved: "&7Warp {name} successfully saved!"
@@ -74,5 +68,4 @@ warp-command:
   unknown: "&7This warp doesn't exists!"
   deleted: "&7The warp {name} was deleted!"
 
-warps:
-  # warp list
+warps: {}
