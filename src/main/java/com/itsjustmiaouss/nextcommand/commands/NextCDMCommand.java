@@ -34,7 +34,7 @@ public class NextCDMCommand implements CommandExecutor, TabCompleter {
         else if(args[0].equalsIgnoreCase("reload")) {
             if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_RELOAD)) {
 
-                nextCommand.reload();
+                nextCommand.reloadConfig();
                 sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "config-reload"));
             }
         }

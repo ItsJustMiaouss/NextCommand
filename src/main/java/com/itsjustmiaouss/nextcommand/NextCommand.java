@@ -20,20 +20,14 @@ public class NextCommand extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        configManager = new ConfigManager(this);
         permissionsManager = new PermissionsManager(this);
         playerManager = new PlayerManager(this);
 
         saveDefaultConfig();
-        reload();
 
         initEvents();
         initCommands();
-    }
-
-    public void reload() {
-        this.reloadConfig();
-
-        configManager = new ConfigManager(this);
     }
 
     /**
