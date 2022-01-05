@@ -6,8 +6,9 @@ Config file is fully editable!
 ## Getting Started
 
 NextCommand needs the following prerequisites to run properly:
-* **[Paper](https://papermc.io/) version >= 1.18.X or [Spigot](https://getbukkit.org/download/spigot)**
-* **Java 17 or higher**
+* **[Paper](https://papermc.io/)** (recommended) **or [Spigot](https://getbukkit.org/download/spigot)** (version >= 1.18.X).
+* **Java 17** or higher (depending on your Minecraft version).
+* Recommended: A permission manager plugin like [LuckPerms](https://luckperms.net/).
 
 ## Installation
 
