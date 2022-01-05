@@ -7,9 +7,10 @@ error-prefix: "&8[&cNextCommand&8]"
 not-player: "&7You must be a player to execute this command!"
 no-permission: "&7You don't have the permission to use this command! (You need the permission {permission})"
 player-not-found: "&7The player has not been found!"
-command-not-found: "&7This command or argument doesn't exist!"
+command-not-found: "&7This command or argument doesn't exist / is not valid!"
 exception: "&7A mistake has been made! Please check the configuration file ({error})."
 config-reload: "&7Configuration file reloaded!"
+teleportation: "&7Teleportation..."
 
 chat-event:
   allow-custom-chat-colors: true
@@ -56,7 +57,6 @@ hat-command:
   cannot-set: "&7Please get a block in your hand and try again!"
 
 spawn-command:
-  teleportation: "&7Teleportation..."
   teleportation-target: "&7{player} has been teleported to the spawn!"
   no-spawn-set: "&7Spawn point has not been defined!"
   spawn-set: "&7The spawn point has been set!"
@@ -67,3 +67,12 @@ spawn-command:
     z:
     yaw:
     pitch:
+
+warp-command:
+  saved: "&7Warp {name} successfully saved!"
+  exists: "&7The warp {name} already exists!"
+  unknown: "&7This warp doesn't exists!"
+  deleted: "&7The warp {name} was deleted!"
+
+warps:
+  # warp list

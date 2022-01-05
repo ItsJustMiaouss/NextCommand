@@ -11,13 +11,13 @@ commands:
       - nc
       - nextc
   broadcast:
-    description: Sends a message to connected players
+    description: Send a message to connected players
   feed:
-    description: Sets max food level and max saturation to player
+    description: Set max food level and max saturation to player
   heal:
-    description: Sets max heal to player
+    description: Set max heal to player
   fly:
-    description: Toggles fly for player
+    description: Toggle fly for player
   hat:
     description: Place a block or an item on player's head
   invsee:
@@ -28,3 +28,9 @@ commands:
     description: Go to spawn point
   ping:
     description: Get the player ping
+  setwarp:
+    description: Save warp location
+  warp:
+    description: Teleport to a warp
+  delwarp:
+    description: Delete a warp

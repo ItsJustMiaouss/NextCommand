@@ -48,7 +48,7 @@ public class SpawnCommand implements CommandExecutor {
 
                     try {
                         spawnPlayer(target);
-                        target.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "spawn-command.teleportation"));
+                        target.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "teleportation"));
                         sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "spawn-command.teleportation-target")
                                 .replace("{player}", target.getName()));
                     } catch (Exception e) {

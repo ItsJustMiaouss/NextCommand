@@ -19,7 +19,10 @@ public enum Permission {
     SPAWN_OTHER("spawn.other"),
     BYPASS_COMMAND_PROTECTION("bypasscommandprotection"),
     PING("ping"),
-    PING_OTHER("ping.other");
+    PING_OTHER("ping.other"),
+    SETWARP("setwarp"),
+    WARP("warp"),
+    DELWARP("delwarp");
 
     private final String node;
 

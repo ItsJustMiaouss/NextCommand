@@ -55,6 +55,9 @@ public class NextCommand extends JavaPlugin {
         getCommand("setspawn").setExecutor(new SetSpawnCommand(this));
         getCommand("spawn").setExecutor(new SpawnCommand(this));
         getCommand("ping").setExecutor(new PingCommand(this));
+        getCommand("setwarp").setExecutor(new SetWarpCommand(this));
+        getCommand("warp").setExecutor(new WarpCommand(this));
+        getCommand("delwarp").setExecutor(new WarpDelWarpCommand(this));
     }
 
     public ConfigManager getConfigManager() {

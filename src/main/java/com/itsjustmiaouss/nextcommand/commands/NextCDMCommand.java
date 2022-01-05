@@ -45,7 +45,7 @@ public class NextCDMCommand implements CommandExecutor, TabCompleter {
         return false;
     }
 
-    List<String> arguments = new ArrayList<String>();
+    List<String> arguments = new ArrayList<>();
 
     public List<String> onTabComplete(CommandSender sender, Command cmd, String s, String[] args) {
         if(arguments.isEmpty()) { arguments.add("reload"); }
