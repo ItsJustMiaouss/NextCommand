@@ -27,14 +27,16 @@ public class PingCommand implements CommandExecutor {
 
         if(args.length == 0) {
             if(nextCommand.getPermissionsManager().hasPermission(player, Permission.PING)) {
-                player.sendMessage("Ping: " + player.getPing());
+                player.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL,"ping-command.ping")
+                        .replace("{ping}", String.valueOf(player.getPing())));
             }
         }
         else {
             Player target = Bukkit.getPlayer(args[0]);
 
             if(nextCommand.getPermissionsManager().hasPermission(player, Permission.PING_OTHER)) {
-                player.sendMessage("Ping " + target.getPing());
+                player.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL,"ping-command.ping")
+                        .replace("{ping}", String.valueOf(target.getPing())));
             }
         }
 

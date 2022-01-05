@@ -56,6 +56,9 @@ hat-command:
   set: "&7Your new hat has been defined!"
   cannot-set: "&7Please get a block in your hand and try again!"
 
+ping-command:
+  ping: "&7Ping: &a{ping}"
+
 spawn-command:
   teleportation-target: "&7{player} has been teleported to the spawn!"
   no-spawn-set: "&7Spawn point has not been defined!"
