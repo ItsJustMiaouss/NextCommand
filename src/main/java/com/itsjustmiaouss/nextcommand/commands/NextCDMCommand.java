@@ -23,7 +23,7 @@ public class NextCDMCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
 
         if(args.length == 0) {
-            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_BASE)) {
+            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.BASE)) {
 
                 String pluginVersion = nextCommand.getDescription().getVersion();
 
@@ -32,7 +32,7 @@ public class NextCDMCommand implements CommandExecutor, TabCompleter {
             }
         }
         else if(args[0].equalsIgnoreCase("reload")) {
-            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_RELOAD)) {
+            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.RELOAD)) {
 
                 nextCommand.reloadConfig();
                 sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "config-reload"));

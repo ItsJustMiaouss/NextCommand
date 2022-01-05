@@ -26,3 +26,5 @@ commands:
     description: Set the spawn point
   spawn:
     description: Go to spawn point
+  ping:
+    description: Get the player ping

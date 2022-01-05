@@ -31,7 +31,7 @@ public class FeedCommand implements CommandExecutor {
                 return false;
             }
 
-            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.NEXTCOMMAND_FEED)) {
+            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.FEED)) {
                 feed(player);
             }
         }
@@ -40,7 +40,7 @@ public class FeedCommand implements CommandExecutor {
 
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_FEED_OTHER)) {
+            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.FEED_OTHER)) {
                 if(nextCommand.getPlayerManager().isOnline(target, sender)) {
                     feed(target);
                     sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "feed-command.fed-target")

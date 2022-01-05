@@ -28,7 +28,7 @@ public class FlyCommand implements CommandExecutor {
                 return false;
             }
 
-            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.NEXTCOMMAND_FLY)) {
+            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.FLY)) {
                 toggleFly(player);
             }
 
@@ -36,7 +36,7 @@ public class FlyCommand implements CommandExecutor {
         else {
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_FLY_OTHER)) {
+            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.FLY_OTHER)) {
                 if(nextCommand.getPlayerManager().isOnline(target, sender)) {
                     toggleFlyTarget(target, sender);
                 }

@@ -8,13 +8,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
-public class InvseeCommand implements CommandExecutor {
+public class PingCommand implements CommandExecutor {
 
     private final NextCommand nextCommand;
 
-    public InvseeCommand(NextCommand nextCommand) {
+    public PingCommand(NextCommand nextCommand) {
         this.nextCommand = nextCommand;
     }
 
@@ -27,18 +26,20 @@ public class InvseeCommand implements CommandExecutor {
         }
 
         if(args.length == 0) {
-            player.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "command-not-found"));
-            return false;
+            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.PING)) {
+                player.sendMessage("Ping: " + player.getPing());
+            }
         }
         else {
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.INVSEE)) {
-                Inventory targetInventory = target.getInventory();
-                player.openInventory(targetInventory);
+            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.PING_OTHER)) {
+                player.sendMessage("Ping " + target.getPing());
             }
         }
 
         return false;
     }
+
+
 }

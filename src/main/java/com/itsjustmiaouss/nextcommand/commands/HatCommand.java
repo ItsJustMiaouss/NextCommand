@@ -29,7 +29,7 @@ public class HatCommand implements CommandExecutor {
                 return false;
             }
 
-            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.NEXTCOMMAND_HAT)) {
+            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.HAT)) {
                 hat(player);
             }
         }

@@ -54,6 +54,7 @@ public class NextCommand extends JavaPlugin {
         getCommand("invsee").setExecutor(new InvseeCommand(this));
         getCommand("setspawn").setExecutor(new SetSpawnCommand(this));
         getCommand("spawn").setExecutor(new SpawnCommand(this));
+        getCommand("ping").setExecutor(new PingCommand(this));
     }
 
     public ConfigManager getConfigManager() {

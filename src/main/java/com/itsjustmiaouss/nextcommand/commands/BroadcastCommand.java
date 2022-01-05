@@ -20,7 +20,7 @@ public class BroadcastCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args)
     {
-        if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_BROADCAST)) {
+        if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.BROADCAST)) {
             if(args.length == 0) {
                 sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "command-not-found"));
                 return false;

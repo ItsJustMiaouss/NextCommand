@@ -29,7 +29,7 @@ public class HealCommand implements CommandExecutor {
                 return false;
             }
 
-            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.NEXTCOMMAND_HEAL)) {
+            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.HEAL)) {
                 player.setHealth(maxHealth);
                 player.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "heal-command.healed"));
             }
@@ -39,7 +39,7 @@ public class HealCommand implements CommandExecutor {
 
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_HEAL_OTHER)) {
+            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.HEAL_OTHER)) {
                 if(nextCommand.getPlayerManager().isOnline(target, sender)) {
                     target.setHealth(maxHealth);
                     sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "heal-command.healed-target")

@@ -27,7 +27,7 @@ public class ChatEvent implements Listener {
         if(!message.contains("&")) return;
         if(!nextCommand.getConfigManager().getBoolean("chat-event.allow-custom-chat-colors")) return;
 
-        if(nextCommand.getPermissionsManager().hasPermissionRaw(player, Permission.NEXTCOMMAND_CHATCOLOR)) {
+        if(nextCommand.getPermissionsManager().hasPermissionRaw(player, Permission.CHATCOLOR)) {
             message = message.replaceAll("&", "§");
             event.setMessage(message);
         }
@@ -39,7 +39,7 @@ public class ChatEvent implements Listener {
         List<String> disabledCommands = nextCommand.getConfig().getStringList("command-event.protection-list");
 
         if(!nextCommand.getConfigManager().getBoolean("command-event.enable-command-protection")) return;
-        if(nextCommand.getPermissionsManager().hasPermissionRaw(player, Permission.NEXTCOMMAND_BYPASS_COMMAND_PROTECTION)) return;
+        if(nextCommand.getPermissionsManager().hasPermissionRaw(player, Permission.BYPASS_COMMAND_PROTECTION)) return;
 
         for(String command : disabledCommands) {
             if(event.getMessage().equalsIgnoreCase("/" + command)) {

@@ -21,7 +21,7 @@ public class ConfigManager {
     }
 
     /**
-     * Get string from config file and add to it a prefix
+     * Get string from config and add to it a prefix
      * @param prefix Prefix from Prefix enum
      * @param path Config file path
      * @return String
@@ -31,7 +31,7 @@ public class ConfigManager {
     }
 
     /**
-     * Get boolean from config file path
+     * Get boolean from config path
      * @param path Path from config file
      * @return boolean
      */

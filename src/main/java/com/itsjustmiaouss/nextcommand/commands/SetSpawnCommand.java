@@ -29,7 +29,7 @@ public class SetSpawnCommand implements CommandExecutor {
             sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "not-player"));
         }
 
-        if(nextCommand.getPermissionsManager().hasPermission(player, Permission.NEXTCOMMAND_SETSPAWN)) {
+        if(nextCommand.getPermissionsManager().hasPermission(player, Permission.SETSPAWN)) {
             Location playerLocation = player.getLocation();
 
             nextCommand.getConfig().set("spawn-command.location.world", playerLocation.getWorld().getName());

@@ -27,7 +27,7 @@ public class SpawnCommand implements CommandExecutor {
                 return false;
             }
 
-            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.NEXTCOMMAND_SPAWN)) {
+            if(nextCommand.getPermissionsManager().hasPermission(player, Permission.SPAWN)) {
 
                 try {
                     spawnPlayer(player);
@@ -43,7 +43,7 @@ public class SpawnCommand implements CommandExecutor {
         else {
             Player target = Bukkit.getPlayer(args[0]);
 
-            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.NEXTCOMMAND_SPAWN_OTHER)) {
+            if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.SPAWN_OTHER)) {
                 if(nextCommand.getPlayerManager().isOnline(target, sender)) {
 
                     try {

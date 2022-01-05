@@ -13,13 +13,13 @@ public class PermissionsManager {
     }
 
     /**
-     * Returns whether player has permission
+     * Return whether player has a permission
      * @param sender Command Sender should have the permission
      * @param permission Permission from Permission enum
      * @return boolean
      */
     public boolean hasPermission(CommandSender sender, Permission permission) {
-        if(sender.hasPermission(permission.getNode()) || sender.hasPermission(Permission.NEXTCOMMAND_ALL.getNode())) {
+        if(sender.hasPermission(permission.getNode()) || sender.hasPermission(Permission.ALL.getNode())) {
             return true;
         } else {
             sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "no-permission")
@@ -29,14 +29,14 @@ public class PermissionsManager {
     }
 
     /**
-     * Returns whether player has permission
+     * Return whether player has permission
      * This method do not send a no-permission message to player
      * @param sender Command Sender should have the permission
      * @param permission Permission from Permission enum
      * @return boolean
      */
     public boolean hasPermissionRaw(CommandSender sender, Permission permission) {
-        return sender.hasPermission(permission.getNode()) || sender.hasPermission(Permission.NEXTCOMMAND_ALL.getNode());
+        return sender.hasPermission(permission.getNode()) || sender.hasPermission(Permission.ALL.getNode());
     }
 
 }
