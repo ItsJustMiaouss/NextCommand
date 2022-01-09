@@ -16,6 +16,8 @@ NextCommand needs the following prerequisites to run properly:
 * **Java 17** or higher (depending on your Minecraft version).
 * Recommended: A permission manager plugin like [LuckPerms](https://luckperms.net/).
 
+> Note: The plugin must be compatible with versions between 1.13.X and 1.18.X.
+
 ## Installation
 
 1. Download the latest version of NextCommand from the [releases](https://github.com/ItsJustMiaouss/NextCommand/releases/latest) page.
