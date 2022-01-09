@@ -2,7 +2,7 @@ package com.itsjustmiaouss.nextcommand.utils.permissions;
 
 public enum Permission {
     ALL("*"),
-    BASE("base"),
+    BASE("base"), // permission for /nextcommand
     RELOAD("reload"),
     BROADCAST("broadcast"),
     FEED("feed"),
@@ -22,7 +22,8 @@ public enum Permission {
     PING_OTHER("ping.other"),
     SETWARP("setwarp"),
     WARP("warp"),
-    DELWARP("delwarp");
+    DELWARP("delwarp"),
+    SIGN("sign");
 
     private final String node;
 

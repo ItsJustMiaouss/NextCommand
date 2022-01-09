@@ -2,6 +2,7 @@ package com.itsjustmiaouss.nextcommand.events;
 
 import com.itsjustmiaouss.nextcommand.NextCommand;
 import com.itsjustmiaouss.nextcommand.utils.config.Prefix;
+import com.itsjustmiaouss.nextcommand.utils.permissions.Permission;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.ComponentLike;
 import net.kyori.adventure.text.TextReplacementConfig;
@@ -77,17 +78,21 @@ public class PlayerEvent implements Listener {
         if(!nextCommand.getConfig().getBoolean("sign-edit.enabled")) return;
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
-        if(event.getClickedBlock().getState() instanceof Sign sign) {
-            if(nextCommand.getConfig().getBoolean("sign-edit.only-sneak") && !player.isSneaking()) return;
+        if(nextCommand.getPermissionsManager().hasPermission(player, Permission.SIGN)) {
+            if(event.getClickedBlock().getState() instanceof Sign sign) {
+                if(nextCommand.getConfig().getBoolean("sign-edit.only-sneak") && !player.isSneaking()) return;
 
-            if(player.getInventory().getItemInOffHand().getType() != Material.AIR || player.getInventory().getItemInMainHand().getType() != Material.AIR) {
-                player.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "sign-edit.cannot-edit"));
-                return;
+                if(player.getInventory().getItemInOffHand().getType() != Material.AIR || player.getInventory().getItemInMainHand().getType() != Material.AIR) {
+                    player.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "sign-edit.cannot-edit"));
+                    return;
+                }
+
+                player.openSign(sign);
+
             }
-
-            player.openSign(sign);
-
         }
+
+
     }
 
 }
