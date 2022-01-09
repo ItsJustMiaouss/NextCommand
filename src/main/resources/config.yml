@@ -14,6 +14,10 @@ teleportation: "&7Teleportation..."
 teleportation-cancelled: "&7You moved, the teleportation was cancelled!"
 teleportation-invalid: "&7You have already requested a teleportation!"
 
+#############################
+#           Events          #
+#############################
+
 chat-event:
   allow-custom-chat-colors: true
 
@@ -36,6 +40,11 @@ command-event:
   protection-list:
     - example1
     - example2
+
+
+#############################
+#          Commands         #
+#############################
 
 broadcast-command:
   format: "&8[&aBroadcast&8] &7{message}"
@@ -76,3 +85,13 @@ warp-command:
   teleport-delay: 3 # Delay before teleport (in seconds)
 
 warps: {}
+
+
+#############################
+#         Utilities         #
+#############################
+
+sign-edit:
+  enabled: true
+  only-sneak: true # Does the player have to sneak
+  cannot-edit: "&7Your hands must be empty to edit this sign!"
