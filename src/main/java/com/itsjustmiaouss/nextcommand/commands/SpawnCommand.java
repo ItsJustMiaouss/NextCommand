@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class SpawnCommand implements CommandExecutor {
 
@@ -29,9 +30,17 @@ public class SpawnCommand implements CommandExecutor {
 
             if(nextCommand.getPermissionsManager().hasPermission(player, Permission.SPAWN)) {
 
+                // Teleport delay
+                int teleportDelay = nextCommand.getConfig().getInt("spawn-command.teleport-delay");
+
+                if(nextCommand.getTeleporting().containsKey(player)) {
+                    player.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "teleportation-invalid"));
+                    return false;
+                }
+
                 try {
-                    spawnPlayer(player);
                     player.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "teleportation"));
+                    spawnPlayer(teleportDelay, player);
                 } catch (Exception e) {
                     player.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "exception")
                             .replace("{error}", e.getMessage()));
@@ -46,11 +55,15 @@ public class SpawnCommand implements CommandExecutor {
             if(nextCommand.getPermissionsManager().hasPermission(sender, Permission.SPAWN_OTHER)) {
                 if(nextCommand.getPlayerManager().isOnline(target, sender)) {
 
+                    // Teleport delay
+                    int teleportDelay = nextCommand.getConfig().getInt("spawn-command.teleport-delay");
+                    if(nextCommand.getTeleporting().containsKey(target)) return false;
+
                     try {
-                        spawnPlayer(target);
                         target.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "teleportation"));
                         sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "spawn-command.teleportation-target")
                                 .replace("{player}", target.getName()));
+                        spawnPlayer(teleportDelay, target);
                     } catch (Exception e) {
                         sender.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "exception")
                                 .replace("{error}", e.getMessage()));
@@ -64,7 +77,7 @@ public class SpawnCommand implements CommandExecutor {
         return false;
     }
 
-    private void spawnPlayer(Player player) throws Exception {
+    private void spawnPlayer(int delay, Player player) throws Exception {
         String world = nextCommand.getConfig().getString("spawn-command.location.world");
         double x = nextCommand.getConfig().getDouble("spawn-command.location.x");
         double y = nextCommand.getConfig().getDouble("spawn-command.location.y");
@@ -72,6 +85,17 @@ public class SpawnCommand implements CommandExecutor {
         float yaw = (float) nextCommand.getConfig().getDouble("spawn-command.location.yaw");
         float pitch = (float) nextCommand.getConfig().getDouble("spawn-command.location.pitch");
 
-        player.teleport(new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch));
+        // Keep this line, this will throw an exception
+        // if the world isn't valid (if the spawn isn't set)
+        Bukkit.getWorld(world);
+
+        nextCommand.getTeleporting().put(player, new BukkitRunnable() {
+            @Override
+            public void run() {
+                if(!nextCommand.getTeleporting().containsKey(player)) return;
+                nextCommand.getTeleporting().remove(player);
+                player.teleport(new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch));
+            }
+        }.runTaskLater(nextCommand, delay * 20L));
     }
 }

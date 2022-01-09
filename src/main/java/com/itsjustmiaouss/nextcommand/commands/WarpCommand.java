@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -55,8 +56,27 @@ public class WarpCommand implements CommandExecutor, TabCompleter {
             float yaw = (float) nextCommand.getConfig().getDouble(warpPath + ".yaw");
             float pitch = (float) nextCommand.getConfig().getDouble(warpPath + ".pitch");
 
-            player.teleport(new Location(w, x, y, z, yaw, pitch));
+
+            // Teleport delay
+            int teleportDelay = nextCommand.getConfig().getInt("warp-command.teleport-delay");
+
+            if(nextCommand.getTeleporting().containsKey(player)) {
+                player.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "teleportation-invalid"));
+                return false;
+            }
+
             player.sendMessage(nextCommand.getConfigManager().getString(Prefix.NORMAL, "teleportation"));
+
+            nextCommand.getTeleporting().put(player, new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if(!nextCommand.getTeleporting().containsKey(player)) return;
+                    nextCommand.getTeleporting().remove(player);
+                    player.teleport(new Location(w, x, y, z, yaw, pitch));
+                }
+            }.runTaskLater(nextCommand, teleportDelay * 20L));
+
+
         }
 
         return false;

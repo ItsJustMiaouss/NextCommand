@@ -11,6 +11,8 @@ command-not-found: "&7This command or argument doesn't exist / is not valid!"
 exception: "&7A mistake has been made! Please check the configuration file ({error})."
 config-reload: "&7Configuration file reloaded!"
 teleportation: "&7Teleportation..."
+teleportation-cancelled: "&7You moved, the teleportation was cancelled!"
+teleportation-invalid: "&7You have already requested a teleportation!"
 
 chat-event:
   allow-custom-chat-colors: true
@@ -29,7 +31,7 @@ entity-event:
     wither: true
 
 command-event:
-  enable-command-protection: true
+  enable-command-protection: false
   protection-message: "&7This command is protected. You don't have permission to use it!"
   protection-list:
     - example1
@@ -64,11 +66,13 @@ spawn-command:
   no-spawn-set: "&7Spawn point has not been defined!"
   spawn-set: "&7The spawn point has been set!"
   location: {}
+  teleport-delay: 3 # Delay before teleport (in seconds)
 
 warp-command:
   saved: "&7Warp {name} successfully saved!"
   exists: "&7The warp {name} already exists!"
   unknown: "&7This warp doesn't exists!"
   deleted: "&7The warp {name} was deleted!"
+  teleport-delay: 3 # Delay before teleport (in seconds)
 
 warps: {}

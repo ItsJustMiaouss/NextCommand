@@ -8,14 +8,20 @@ import com.itsjustmiaouss.nextcommand.utils.PlayerManager;
 import com.itsjustmiaouss.nextcommand.utils.config.ConfigManager;
 import com.itsjustmiaouss.nextcommand.utils.permissions.PermissionsManager;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
+
+import java.util.HashMap;
 
 public class NextCommand extends JavaPlugin {
 
     private ConfigManager configManager;
     private PermissionsManager permissionsManager;
     private PlayerManager playerManager;
+
+    private HashMap<Player, BukkitTask> teleporting = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -42,7 +48,7 @@ public class NextCommand extends JavaPlugin {
 
     /**
      * Initialize plugin commands
-     * Do not forget to add them into plugin.yml
+     * Do not forget to add them into the plugin.yml
      */
     private void initCommands() {
         getCommand("nextcommand").setExecutor(new NextCDMCommand(this));
@@ -70,5 +76,9 @@ public class NextCommand extends JavaPlugin {
 
     public PlayerManager getPlayerManager() {
         return playerManager;
+    }
+
+    public HashMap<Player, BukkitTask> getTeleporting() {
+        return teleporting;
     }
 }

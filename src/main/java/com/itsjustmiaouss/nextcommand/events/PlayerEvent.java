@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Unmodifiable;
@@ -40,6 +41,22 @@ public class PlayerEvent implements Listener {
 
         event.setQuitMessage(nextCommand.getConfigManager().getString(Prefix.NONE, "join-event.quit-message")
                 .replace("{player}", player.getName()));
+    }
+
+    /**
+     * Cancel teleporting tasks if
+     * the player is moving
+     */
+    @EventHandler
+    public void onPlayerChangeBlock(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+
+        if(event.hasExplicitlyChangedBlock()) {
+            if (nextCommand.getTeleporting().containsKey(player)) {
+                nextCommand.getTeleporting().remove(player);
+                player.sendMessage(nextCommand.getConfigManager().getString(Prefix.ERROR, "teleportation-cancelled"));
+            }
+        }
     }
 
 }
