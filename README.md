@@ -1,7 +1,13 @@
 # NextCommand
 
 :gear: NextCommand adds many essential commands to your Minecraft server.
-Config file is fully editable!
+The config file is easily editable!
+
+- :white_check_mark: Useful commands
+- :white_check_mark: Optimized! :tada:
+- :white_check_mark: Easy to use!
+- :white_check_mark: Custom features (sign edit...)
+- :white_check_mark: Does not override the original controls
 
 ## Getting Started
 
@@ -18,6 +24,17 @@ NextCommand needs the following prerequisites to run properly:
 
 ```
 /plugins and /nextcommand
+```
+
+## Permissions
+
+For this moment, the permission list is avaiable [here](https://github.com/ItsJustMiaouss/NextCommand/blob/1.18.X/src/main/java/com/itsjustmiaouss/nextcommand/utils/permissions/Permission.java).
+
+> Note: All permissions starts with "nextcommand."
+
+Example
+```
+BROADCAST("broadcast") # Permission is nextcommand.broadcast
 ```
 
 ## Usage
